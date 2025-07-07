@@ -56,15 +56,15 @@ const Contact = () => {
           <div className="contact-details">
             <div className="contact-detail">
               <FontAwesomeIcon icon={faGoogle} />
-              <p>vishal26songara@gmail.com</p>
+              <p>kavinbalaji@gmail.com</p>
             </div>
             <div className="contact-detail">
               <FontAwesomeIcon icon={faWhatsapp} />
-              <p>+91 9460772077</p>
+              <p>+91 9876543210</p>
             </div>
             <div className="contact-detail">
               <FontAwesomeIcon icon={faLocationDot} />
-              <p>Jaipur, Rajasthan, India</p>
+              <p>Chennai, Tamil Nadu, India</p>
             </div>
           </div>
         </div>

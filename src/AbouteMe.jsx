@@ -16,12 +16,12 @@ const AboutMe = () => {
                         </div>
                     </div>
                         <div className="about-section-right">
-                            <p>I’m a developer and B.Tech student who loves turning ideas into fast, functional web apps with React .</p>
-                            <p>Outside the code editor, I enjoy exploring creative ideas through technology. I'm always learning, always building, and always excited about what’s next.</p>
+                            <p>I'm a passionate software developer with expertise in full-stack development, specializing in modern web technologies and creating efficient, scalable solutions.</p>
+                            <p>With a strong foundation in both frontend and backend development, I enjoy building applications that solve real-world problems and deliver exceptional user experiences.</p>
                             <div className="about-section-education">
                                     <h3>Current Education</h3>
-                                    <p>Bachelor of Technology (B.Tech), Computer Science and Engineering.</p>
-                                    <p>Swami Keswanand Institute of Technology, Jaipur.</p>
+                                    <p>Bachelor of Engineering (B.E), Computer Science and Engineering.</p>
+                                    <p>Studying modern software development practices and emerging technologies.</p>
                                     
                         </div>
 

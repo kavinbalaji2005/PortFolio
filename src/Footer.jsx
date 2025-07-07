@@ -53,7 +53,7 @@ const Footer = () => {
 
       <div className="footer-bottom">
         <p className="footer-bottom-left">
-          &copy; {new Date().getFullYear()} Vishal Songara. All rights reserved
+          &copy; {new Date().getFullYear()} Kavin Balaji. All rights reserved
         </p>
         <div className="footer-botton-right">
           <p>Term of Services</p>

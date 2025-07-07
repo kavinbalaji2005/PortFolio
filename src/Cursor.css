@@ -1,0 +1,12 @@
+.cursor-shadow {
+    position: fixed;
+    width: 1px;
+    height: 1px;
+    border-radius: 50%;
+    pointer-events: none;
+    background-color: rgba(255, 255, 255, 0.086);
+    box-shadow: 0 0 60px 40px rgba(255, 255, 255, 0.211);
+    transform: translate(-50%, -50%);
+    z-index: 0;
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.2s;
+}

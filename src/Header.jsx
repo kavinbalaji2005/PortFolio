@@ -32,8 +32,35 @@ const Header = () => {
         setMobileMenuOpen(false);
     };
 
+    // Close mobile menu when clicking outside
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (mobileMenuOpen && !event.target.closest('.nav-bar') && !event.target.closest('.mobile-menu-toggle')) {
+                setMobileMenuOpen(false);
+            }
+        };
+
+        document.addEventListener('click', handleClickOutside);
+        return () => document.removeEventListener('click', handleClickOutside);
+    }, [mobileMenuOpen]);
+
+    // Prevent body scroll when mobile menu is open
+    useEffect(() => {
+        if (mobileMenuOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'unset';
+        }
+        
+        return () => {
+            document.body.style.overflow = 'unset';
+        };
+    }, [mobileMenuOpen]);
     return(
         <div className={color ? "header header-bg": "header"}>
+            {/* Mobile menu overlay */}
+            <div className={`mobile-menu-overlay ${mobileMenuOpen ? 'active' : ''}`} onClick={closeMobileMenu}></div>
+            
             <div className="header-brand">
                 <span className="logo">KB</span>
             </div>

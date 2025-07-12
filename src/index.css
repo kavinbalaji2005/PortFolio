@@ -307,6 +307,19 @@ body, p, a, button, input, textarea {
 .text-caption {
   margin-bottom: var(--space-2);
 }
+.text-display,
+.text-heading-1,
+.text-heading-2,
+.text-heading-3,
+.text-heading-4 {
+    text-wrap: balance; /* Better text wrapping for headings */
+}
+
+.text-body,
+.text-body-large,
+.text-body-small {
+    text-wrap: pretty; /* Better text wrapping for body text */
+}
 
 /* Enhanced Responsive Typography */
 @media (max-width: 768px) {
@@ -336,6 +349,7 @@ body {
     background-size: cover;
     background-attachment: scroll;
     transition: background-color 0.5s ease, color 0.3s ease;
+    min-width: 320px; /* Prevent layout breaking on very small screens */
 }
 
 body::before {
@@ -1099,6 +1113,7 @@ body::before {
     min-height: 340px;
     margin: 0 8px;
     box-sizing: border-box;
+    overflow: hidden; /* Prevent content overflow */
 }
 
 .project-card:hover {
@@ -1153,6 +1168,9 @@ body::before {
     transition: all 0.3s ease;
     white-space: nowrap;
     box-shadow: 0 2px 6px var(--shadow-secondary);
+    word-break: keep-all; /* Prevent breaking of tech names */
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .tech-tag:hover {
@@ -1243,6 +1261,8 @@ body::before {
     box-shadow: 0 4px 20px var(--shadow-primary);
     transition: all 0.3s ease;
     box-sizing: border-box;
+    -webkit-appearance: none; /* Remove iOS styling */
+    -moz-appearance: none; /* Remove Firefox styling */
 }
 
 .contact-right input {
@@ -1672,6 +1692,23 @@ body::before {
         min-width: 250px;
     }
 }
+.mobile-menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.mobile-menu-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
 
 /* Tablets */
 @media (max-width: 768px) {
@@ -1735,6 +1772,7 @@ body::before {
         padding: 8px 16px;
         min-width: auto;
         min-height: auto;
+        white-space: nowrap;
     }
 
     .home {
@@ -1743,6 +1781,7 @@ body::before {
         flex-direction: column;
         text-align: center;
         gap: 40px;
+        min-height: calc(100vh - 120px);
     }
 
     .home .home-content {
@@ -1751,11 +1790,14 @@ body::before {
 
     .word-switch {
         max-width: 100%;
+        height: auto;
+        min-height: 1.2em;
     }
 
     .resume-icon-container {
         justify-content: center;
         gap: 20px;
+        flex-wrap: wrap;
     }
 
     .resume-button-enhanced {
@@ -1786,6 +1828,10 @@ body::before {
         min-width: 100%;
     }
 
+    .photo-wrapper {
+        width: clamp(220px, 50vw, 320px);
+        height: clamp(220px, 50vw, 320px);
+    }
     .skills-section {
         margin: 50px 20px;
         padding: 30px 20px;
@@ -1795,6 +1841,10 @@ body::before {
         display: none !important;
     }
 
+    .skill-card {
+        min-width: 110px;
+        padding: 20px;
+    }
     .projects-section {
         margin: 50px 20px;
         padding: 30px 20px;
@@ -1809,7 +1859,7 @@ body::before {
         padding: 20px;
         min-height: auto;
         margin: 0 2px;
-        min-width: 280px;
+        min-width: 260px;
     }
 
     .contact {
@@ -1831,6 +1881,10 @@ body::before {
         padding: 20px;
     }
 
+    .contact-right input,
+    .contact-right textarea {
+        font-size: 16px; /* Prevents zoom on iOS */
+    }
     .footer-bottom {
         flex-direction: column;
         text-align: center;
@@ -1839,6 +1893,7 @@ body::before {
 
     .footer-bottom-right {
         justify-content: center;
+        flex-wrap: wrap;
     }
 }
 
@@ -1853,7 +1908,29 @@ body::before {
         min-height: auto;
         padding: 15px;
         margin: 0;
-        min-width: 200px;
+        min-width: 220px;
+    }
+
+    .home {
+        padding-top: 100px;
+        margin: 0px 18px;
+    }
+
+    .resume-icon-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .social-icons-enhanced {
+        gap: 15px;
+    }
+
+    .contact-detail {
+        font-size: 15px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
     }
 }
 
@@ -1892,6 +1969,7 @@ body::before {
         margin: 0px 15px;
         padding-top: 80px;
         gap: 20px;
+        min-height: calc(100vh - 80px);
     }
 
     .resume-icon-container {
@@ -1904,6 +1982,7 @@ body::before {
         min-width: 140px;
         min-height: 40px;
         padding: 10px 20px;
+        font-size: 14px;
     }
 
     .social-icons-enhanced {
@@ -1925,6 +2004,10 @@ body::before {
         gap: 20px;
     }
 
+    .photo-wrapper {
+        width: clamp(200px, 60vw, 280px);
+        height: clamp(200px, 60vw, 280px);
+    }
     .skills-section {
         margin: 30px 15px;
         padding: 15px;
@@ -1932,6 +2015,7 @@ body::before {
 
     .skill-card {
         padding: 15px;
+        min-width: 100px;
     }
 
     .projects-section {
@@ -1947,7 +2031,8 @@ body::before {
         padding: 18px;
         min-height: auto;
         margin: 0 1px;
-        min-width: 260px;
+        min-width: 240px;
+        max-width: 100%;
     }
 
     .project-tech {
@@ -1976,16 +2061,20 @@ body::before {
     .contact-detail {
         font-size: 16px;
         gap: 12px;
+        flex-wrap: wrap;
     }
 
     .contact-right input,
     .contact-right textarea {
         padding: 15px;
+        font-size: 16px; /* Prevents zoom on iOS */
     }
 
     .contact-submit {
         padding: 12px 30px;
         font-size: 16px;
+        width: 100%;
+        max-width: 200px;
     }
 }
 
@@ -2022,12 +2111,54 @@ body::before {
     .project-card {
         padding: 15px;
         margin: 0;
-        min-width: 240px;
+        min-width: 200px;
+        max-width: 100%;
     }
 
+    .photo-wrapper {
+        width: clamp(180px, 70vw, 220px);
+        height: clamp(180px, 70vw, 220px);
+    }
+
+    .resume-button-enhanced {
+        min-width: 120px;
+        font-size: 12px;
+        padding: 8px 16px;
+    }
+
+    .social-link {
+        width: 35px;
+        height: 35px;
+        font-size: 14px;
+    }
     .contact-left,
     .contact-right {
         padding: 12px;
+    }
+}
+.navigation-list a:focus,
+.connect:focus,
+.resume-button-enhanced:focus,
+.social-link:focus,
+.github-link:focus,
+.contact-submit:focus,
+.theme-toggle:focus {
+    outline: 2px solid var(--text-accent);
+    outline-offset: 2px;
+}
+@supports (padding: max(0px)) {
+    .header {
+        padding-left: max(20px, env(safe-area-inset-left));
+        padding-right: max(20px, env(safe-area-inset-right));
+    }
+    
+    .home,
+    .aboutme,
+    .skills-section,
+    .projects-section,
+    .contact {
+        padding-left: max(20px, env(safe-area-inset-left));
+        padding-right: max(20px, env(safe-area-inset-right));
     }
 }
 

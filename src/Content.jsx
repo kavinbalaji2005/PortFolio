@@ -21,7 +21,7 @@ const Content = () => {
 
                 <div className="resume-icon-container"> 
                     <div className="resume-wrapper">
-                        <a href="/PortFolio/Kavin_Balaji_CV.pdf" 
+                        <a href="/Kavin_Balaji_CV.pdf" 
                             target="_blank"
                             rel="noopener noreferrer"
                         >

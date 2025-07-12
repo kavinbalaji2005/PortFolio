@@ -4,7 +4,7 @@ import Content from "./Content";
 import CursorShadow from "./Cursor";
 import { ThemeProvider } from "./ThemeContext";
 import ErrorBoundary from "./components/ErrorBoundary";
-import { Analytics } from "@vercel/analytics/next"
+import { Analytics } from "@vercel/analytics/react"
 
 // Lazy load components for better performance
 const AboutMe = lazy(() => import("./AboutMe"));
@@ -30,7 +30,7 @@ const App = () => {
   return (
     <ErrorBoundary>
       <ThemeProvider>
-        <Analytics mode = "production"/>
+        <Analytics mode={import.meta.env.PROD ? "production" : "development"} />
         <div id="home" className="app">
           <CursorShadow />
           <Header />

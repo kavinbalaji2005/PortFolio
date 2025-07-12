@@ -79,29 +79,32 @@ const Projects = () => {
   };
 
   return (
-    <div  className="projects-container">
-      <div id="projects" className="projects-title">
-        <h1>Projects</h1>
-      </div>
-
-      <div className="projects-grid">
-
-        {/* Project 1 */}
-        <div className="project-card">
-          <img src="/FUTURE_FS_01/library.png" alt="Library Portal" className="project-img" />
-          <h3>Library Portal</h3>
-          <p>
-            A library Portal built using React.js, CSS, and SQL. Includes user-friendly components like book cards, navigation bar and guest access functionality.
-          </p>
-          <a
-            href="https://github.com/Vishalsongara77/local-library-portal"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="github-link"
-          >
-            <FontAwesomeIcon icon={faGithub} /> View Code
-          </a>
-        </div>
+    <div className="projects-section">
+      <h2 id="projects" className="projects-title text-heading-1">Projects</h2>
+      <div className="projects-carousel-container">
+        <Slider {...settings} className="projects-carousel">
+          {projects.map((project, index) => (
+            <div key={index} className="project-container">
+              <div className="project-card">
+                <h3 className="project-title text-heading-3">{project.title}</h3>
+                <p className="text-body">{project.description}</p>
+                <div className="project-tech">
+                  {project.technologies.map((tech, techIndex) => (
+                    <span key={techIndex} className="tech-tag text-caption">{tech}</span>
+                  ))}
+                </div>
+                <a
+                  href={project.githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="github-link"
+                >
+                  <FontAwesomeIcon icon={faGithub} /> View Code
+                </a>
+              </div>
+            </div>
+          ))}
+        </Slider>
       </div>
     </div>
   );

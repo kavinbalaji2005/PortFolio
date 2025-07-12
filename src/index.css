@@ -1875,6 +1875,12 @@ body::before {
     .navigation-list {
         width: 100%;
         padding: 0 20px;
+        right: -100%;
+        transition: right 0.3s ease;
+    }
+
+    .navigation-list.mobile-menu-open {
+        right: 0;
     }
 
     .navigation-list li a {
@@ -2013,6 +2019,12 @@ body::before {
 
     .navigation-list {
         padding: 0 15px;
+        right: -100%;
+        transition: right 0.3s ease;
+    }
+
+    .navigation-list.mobile-menu-open {
+        right: 0;
     }
 
     .projects-carousel .slick-slide {
@@ -2066,6 +2078,12 @@ body::before {
     
     .navigation-list {
         gap: 25px;
+        right: -100%;
+        transition: right 0.3s ease;
+    }
+
+    .navigation-list.mobile-menu-open {
+        right: 0;
     }
     
     .about-section {

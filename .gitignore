@@ -22,7 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-<<<<<<< HEAD
 
 # Environment variables
 .env
@@ -35,6 +34,3 @@ dist-ssr
 .firebase
 .firebaserc
 firebase.json
-=======
-.env
->>>>>>> cc22be3423680e5cd4603e7541a1b3efca5b66ea

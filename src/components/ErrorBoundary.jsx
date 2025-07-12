@@ -29,8 +29,12 @@ class ErrorBoundary extends React.Component {
               <details style={{ whiteSpace: 'pre-wrap', marginTop: '20px' }}>
                 <summary>Error Details (Development Mode)</summary>
                 <p><strong>Error:</strong> {this.state.error && this.state.error.toString()}</p>
-                <p><strong>Stack Trace:</strong></p>
-                <pre>{this.state.errorInfo.componentStack}</pre>
+                {this.state.errorInfo && this.state.errorInfo.componentStack && (
+                  <>
+                    <p><strong>Stack Trace:</strong></p>
+                    <pre>{this.state.errorInfo.componentStack}</pre>
+                  </>
+                )}
               </details>
             )}
             <button 

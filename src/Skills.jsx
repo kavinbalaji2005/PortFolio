@@ -4,8 +4,7 @@ import {
   FaCss3Alt,
   FaJs,
   FaReact,
-  FaGitAlt,
-  FaBootstrap
+  FaGitAlt
 } from "react-icons/fa";
 import { SiMysql, SiVite, SiCplusplus } from "react-icons/si";
 
@@ -20,33 +19,61 @@ const skills = [
   { name: "Vite", icon: <SiVite color="#646cff" /> },
 ];
 
-
 const Skills = () => {
-
-    const settings = {
-    dots: false,
+  const settings = {
+    dots: true,
     infinite: true,
     speed: 500,
-    slidesToShow: 6,        // show 5 at once
+    slidesToShow: 6,
     slidesToScroll: 2,
-    
     arrows: true,
-    
+    autoplay: false,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 4,
+          slidesToScroll: 1,
+          arrows: true,
+          dots: true
+        }
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1,
+          arrows: false,
+          dots: true
+        }
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+          arrows: false,
+          dots: true
+        }
+      }
+    ]
   };
 
- return (
-    <div  className="skills-section">
-      <h2 id="skills" className="skills-title">My Skills</h2>
-      <Slider {...settings} className="skills-carousel">
-        {skills.map((skill, index) => (
-            <div className="skill-container">
-                <div key={index} className="skill-card">
-                    <div className="skill-icon">{skill.icon}</div>
-                    <p className="skill-name">{skill.name}</p>
-                </div>
+  return (
+    <div className="skills-section">
+      <h2 id="skills" className="skills-title text-heading-1">My Skills</h2>
+      <div className="skills-carousel-container">
+        <Slider {...settings} className="skills-carousel">
+          {skills.map((skill, index) => (
+            <div key={index} className="skill-container">
+              <div className="skill-card">
+                <div className="skill-icon">{skill.icon}</div>
+                <p className="skill-name text-body">{skill.name}</p>
+              </div>
             </div>
-        ))}
-      </Slider>
+          ))}
+        </Slider>
+      </div>
     </div>
   );
 };

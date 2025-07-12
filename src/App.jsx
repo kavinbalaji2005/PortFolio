@@ -1,30 +1,67 @@
+import { lazy, Suspense } from 'react';
 import Header from "./Header";
 import Content from "./Content";
 import CursorShadow from "./Cursor";
-import AboutMe from "./AbouteMe";
-import Contact from "./Contact";
-import Footer from "./Footer";
-import Projects from "./Projects";
-import Skills from "./Skills"
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import { ThemeProvider } from "./ThemeContext";
+import ErrorBoundary from "./components/ErrorBoundary";
 
+// Lazy load components for better performance
+const AboutMe = lazy(() => import("./AboutMe"));
+const Contact = lazy(() => import("./Contact"));
+const Footer = lazy(() => import("./Footer"));
+const Projects = lazy(() => import("./Projects"));
+const Skills = lazy(() => import("./Skills"));
 
-const App = () =>{
-      
-      return(
-            <div id="home" className="app">
-                  <CursorShadow/>
-                  <Header/>
-                  <Content/>
-                  <AboutMe/>
-                  <Skills/>
-                  <Projects/>
-                  <Contact/>
-                  <Footer/>
+// Loading component
+const LoadingSpinner = () => (
+  <div style={{ 
+    display: 'flex', 
+    justifyContent: 'center', 
+    alignItems: 'center', 
+    minHeight: '200px',
+    color: 'var(--text-primary)'
+  }}>
+    <div>Loading...</div>
+  </div>
+);
 
-            </div>
-      );
-}
+const App = () => {
+  return (
+    <ErrorBoundary>
+      <ThemeProvider>
+        <div id="home" className="app">
+          <CursorShadow />
+          <Header />
+          <Content />
+          <ErrorBoundary>
+            <Suspense fallback={<LoadingSpinner />}>
+              <AboutMe />
+            </Suspense>
+          </ErrorBoundary>
+          <ErrorBoundary>
+            <Suspense fallback={<LoadingSpinner />}>
+              <Skills />
+            </Suspense>
+          </ErrorBoundary>
+          <ErrorBoundary>
+            <Suspense fallback={<LoadingSpinner />}>
+              <Projects />
+            </Suspense>
+          </ErrorBoundary>
+          <ErrorBoundary>
+            <Suspense fallback={<LoadingSpinner />}>
+              <Contact />
+            </Suspense>
+          </ErrorBoundary>
+          <ErrorBoundary>
+            <Suspense fallback={<LoadingSpinner />}>
+              <Footer />
+            </Suspense>
+          </ErrorBoundary>
+        </div>
+      </ThemeProvider>
+    </ErrorBoundary>
+  );
+};
 
-export default App
+export default App;

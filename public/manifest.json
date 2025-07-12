@@ -1,0 +1,28 @@
+{
+  "name": "Kavin Balaji - Portfolio",
+  "short_name": "KB Portfolio",
+  "description": "Full Stack Developer and Cloud Enthusiast Portfolio",
+  "start_url": "/PortFolio/",
+  "display": "standalone",
+  "background_color": "#0d0221",
+  "theme_color": "#17a9e5",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/PortFolio/vite.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable any"
+    }
+  ],
+  "categories": ["portfolio", "developer", "web"],
+  "lang": "en",
+  "screenshots": [
+    {
+      "src": "/PortFolio/ProfilePic.png",
+      "sizes": "any",
+      "type": "image/png",
+      "form_factor": "wide"
+    }
+  ]
+}

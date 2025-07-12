@@ -20,6 +20,8 @@ const Footer = () => {
       })
       .catch((error) => {
         console.error("Error fetching like count:", error);
+        // Fallback to local state if Firebase fails
+        setLikes(0);
       });
   }, []);
 
@@ -36,7 +38,15 @@ const Footer = () => {
       })
       .catch((error) => {
         console.error("Transaction failed:", error);
+        // Fallback: increment local state even if Firebase fails
+        setLikes(prevLikes => prevLikes + 1);
       });
+  };
+
+  const getLikeMessage = (count) => {
+    if (count === 0) return "Be the first to like this portfolio!";
+    if (count === 1) return "1 person likes this portfolio!";
+    return `${count} people like this portfolio!`;
   };
 
   return (
@@ -45,17 +55,16 @@ const Footer = () => {
 
       <div className="like-container" onClick={handleLikes}>
         <p className="like-message">
-          Did you like my portfolio?{" "}
+          {getLikeMessage(likes)}{" "}
           <FontAwesomeIcon icon={faHeart} className="heart-icon" />
-          <span className="like-count">{likes}</span>
         </p>
       </div>
 
       <div className="footer-bottom">
         <p className="footer-bottom-left">
-          &copy; {new Date().getFullYear()} Vishal Songara. All rights reserved
+          &copy; {new Date().getFullYear()} Kavin Balaji. All rights reserved
         </p>
-        <div className="footer-botton-right">
+        <div className="footer-bottom-right">
           <p>Term of Services</p>
           <p>Privacy Policy</p>
           <p>Connect with me</p>

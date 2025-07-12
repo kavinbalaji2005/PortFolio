@@ -1,6 +1,11 @@
 {
+<<<<<<< HEAD
   "name": "my-portfolio",
   "homepage": "https://kavinbalaji2005.github.io/PortFolio/",
+=======
+  "name": "kavin-portfolio",
+  "homepage": "https://kavinbalaji.github.io/FUTURE_FS_01/",
+>>>>>>> cc22be3423680e5cd4603e7541a1b3efca5b66ea
   "private": true,
   "version": "0.0.0",
   "type": "module",

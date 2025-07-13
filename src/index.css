@@ -1704,13 +1704,13 @@ p {
   position: relative;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 var(--space-12); /* Add padding for arrows */
+  padding: 0 var(--space-12) var(--space-16) var(--space-12); /* Add padding for arrows and bottom padding for dots */
   overflow: hidden;
 }
 
 .projects-carousel {
   margin: 0 calc(-1 * var(--space-2));
-  padding-bottom: var(--space-16); /* Add bottom padding for dots */
+  padding-bottom: 0; /* Remove bottom padding since container now handles it */
 }
 
 .projects-carousel .slick-slide {
@@ -1737,6 +1737,8 @@ p {
   list-style: none;
   padding: 0;
   margin: 0;
+  z-index: 10;
+  position: relative;
 }
 
 .projects-carousel .slick-dots li {
@@ -1754,9 +1756,11 @@ p {
   background: var(--bg-glass);
   backdrop-filter: var(--backdrop-blur);
   -webkit-backdrop-filter: var(--backdrop-blur);
-  border: 1px solid var(--border-primary);
+  border: 2px solid var(--border-primary);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
+  opacity: 1 !important;
+  visibility: visible !important;
 }
 
 .projects-carousel .slick-dots li button:before {
@@ -2302,29 +2306,6 @@ p {
   width: 100%;
 }
 
-.like-message {
-  font-size: clamp(var(--font-size-base), 3.5vw, var(--font-size-lg));
-  font-weight: var(--font-weight-medium);
-  margin-bottom: var(--space-5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: var(--space-2);
-  color: var(--text-primary);
-  flex-wrap: wrap;
-}
-
-.heart-icon {
-  color: var(--text-primary);
-  transition: transform 0.3s ease;
-  font-size: 1.2em;
-}
-
-.heart-icon:hover {
-  transform: scale(1.5);
-  color: #e25555;
-}
-
 .footer-bottom {
   font-size: clamp(var(--font-size-sm), 3vw, var(--font-size-base));
   color: var(--text-secondary);
@@ -2398,18 +2379,6 @@ p {
     align-items: center;
     justify-content: center;
     flex: 1;
-}
-
-.like-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: transform 0.3s ease;
-}
-
-.like-container:hover {
-    transform: scale(1.05);
 }
 
 .sending-msg {

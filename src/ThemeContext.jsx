@@ -10,22 +10,33 @@ export const ThemeProvider = ({ children }) => {
 
   useEffect(() => {
     // Check for saved theme preference or system preference
-    const savedTheme = localStorage.getItem('portfolio-theme');
-    if (savedTheme) {
-      setTheme(savedTheme);
-    } else {
-      // Check system preference
-      const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      setTheme(systemPrefersDark ? 'dark' : 'light');
+    try {
+      const savedTheme = localStorage.getItem('portfolio-theme');
+      if (savedTheme && (savedTheme === 'dark' || savedTheme === 'light')) {
+        setTheme(savedTheme);
+      } else {
+        // Check system preference
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        setTheme(systemPrefersDark ? 'dark' : 'light');
+      }
+    } catch (error) {
+      console.warn('Error accessing localStorage or system preferences:', error);
+      setTheme('dark'); // Default fallback
     }
     setIsLoading(false);
   }, []);
 
   useEffect(() => {
-    // Apply theme to document
-    document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem('portfolio-theme', theme);
-  }, [theme]);
+    if (isLoading) return;
+    
+    try {
+      // Apply theme to document
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('portfolio-theme', theme);
+    } catch (error) {
+      console.warn('Error saving theme preference:', error);
+    }
+  }, [theme, isLoading]);
 
   const toggleTheme = () => {
     setTheme(prevTheme => prevTheme === 'dark' ? 'light' : 'dark');

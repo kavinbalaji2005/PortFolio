@@ -4,19 +4,20 @@ import {
   FaCss3Alt,
   FaJs,
   FaReact,
-  FaGitAlt
+  FaGitAlt,
+  FaPython
 } from "react-icons/fa";
-import { SiMysql, SiVite, SiCplusplus } from "react-icons/si";
+import { SiMysql, SiCplusplus } from "react-icons/si";
 
 const skills = [
   { name: "HTML", icon: <FaHtml5 color="#e34c26" /> },
   { name: "CSS", icon: <FaCss3Alt color="#264de4" /> },
   { name: "JavaScript", icon: <FaJs color="#f7df1e" /> },
   { name: "React", icon: <FaReact color="#61dafb" /> },
+  { name: "Python", icon: <FaPython color="#3776ab" /> },
   { name: "MySQL", icon: <SiMysql color="#00758f" /> },
   { name: "C++", icon: <SiCplusplus color="#00599C" /> },
   { name: "Git", icon: <FaGitAlt color="#f34f29" /> },
-  { name: "Vite", icon: <SiVite color="#646cff" /> },
 ];
 
 const Skills = () => {
@@ -25,9 +26,11 @@ const Skills = () => {
     infinite: true,
     speed: 500,
     slidesToShow: 6,
-    slidesToScroll: 2,
+    slidesToScroll: 1,
     arrows: true,
-    autoplay: false,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    pauseOnHover: true,
     responsive: [
       {
         breakpoint: 1024,

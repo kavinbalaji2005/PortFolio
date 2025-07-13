@@ -62,7 +62,7 @@ const Header = () => {
             <div className={`mobile-menu-overlay ${mobileMenuOpen ? 'active' : ''}`} onClick={closeMobileMenu}></div>
             
             <div className="header-brand">
-                <span className="logo">KB</span>
+                <img src="/logo.png" alt="Kavin Balaji Logo" className="logo" />
             </div>
             
             <nav className="nav-bar">

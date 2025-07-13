@@ -64,11 +64,6 @@ const Footer = () => {
         <p className="footer-bottom-left">
           &copy; {new Date().getFullYear()} Kavin Balaji. All rights reserved
         </p>
-        <div className="footer-bottom-right">
-          <p>Term of Services</p>
-          <p>Privacy Policy</p>
-          <p>Connect with me</p>
-        </div>
       </div>
     </div>
   );

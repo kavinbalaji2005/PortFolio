@@ -5,6 +5,7 @@ import CursorShadow from "./Cursor";
 import { ThemeProvider } from "./ThemeContext";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { Analytics } from "@vercel/analytics/react"
+import { SpeedInsights } from "@vercel/speed-insights/react"
 
 // Lazy load components for better performance
 const AboutMe = lazy(() => import("./AboutMe"));
@@ -31,6 +32,7 @@ const App = () => {
     <ErrorBoundary>
       <ThemeProvider>
         <Analytics mode={import.meta.env.PROD ? "production" : "development"} />
+        <SpeedInsights />
         <div id="home" className="app">
           <CursorShadow />
           <Header />

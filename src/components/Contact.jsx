@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import emailjs from 'emailjs-com';
 import { HiMail, HiLocationMarker, HiPaperAirplane } from 'react-icons/hi';
-import { FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -89,20 +88,12 @@ const Contact = () => {
       icon: HiMail,
       label: 'Email',
       value: 'kavinbalaji@gmail.com',
-      href: 'mailto:kavinbalaji@gmail.com'
     },
     {
       icon: HiLocationMarker,
       label: 'Location',
       value: 'Coimbatore, Tamil Nadu, India',
-      href: '#'
     }
-  ];
-
-  const socialLinks = [
-    { icon: FaGithub, href: 'https://github.com/kavinbalaji2005', label: 'GitHub' },
-    { icon: FaLinkedin, href: 'https://linkedin.com/in/kavinbalaji2005', label: 'LinkedIn' },
-    { icon: FaTwitter, href: 'https://twitter.com', label: 'Twitter' },
   ];
 
   return (

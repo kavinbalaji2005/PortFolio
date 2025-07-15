@@ -86,7 +86,20 @@ const About = () => {
                 </p>
               </div>
 
-            
+              <div className="bg-gradient-to-r from-blue-50 to-teal-50 dark:from-blue-900/20 dark:to-teal-900/20 p-6 rounded-lg border border-blue-200/30 dark:border-blue-800/30 shadow-lg">
+                <h4 className="text-xl font-semibold text-blue-800 dark:text-blue-300 mb-3">
+                  Education
+                </h4>
+                <div className="space-y-2">
+                  <p className="text-lg font-medium text-gray-900 dark:text-white">
+                    B.Tech in Computer and Communication Engineering
+                  </p>
+                  <p className="text-md text-blue-600 dark:text-blue-400 font-medium">
+                    Amrita Vishwa Vidyapeetham, Coimbatore
+                  </p>
+                </div>
+              </div>
+
             </motion.div>
           </div>
         </motion.div>

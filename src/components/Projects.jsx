@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
+import { FaGithub } from 'react-icons/fa';
 import { HiCode, HiGlobeAlt, HiCube } from 'react-icons/hi';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
@@ -135,7 +135,7 @@ const Projects = () => {
                       <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
                         {project.title}
                       </h3>
-                      <p className="text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">
+                      <p className="text-gray-600 dark:text-gray-300 mb-4 line-clamp-none">
                         {project.description}
                       </p>
 

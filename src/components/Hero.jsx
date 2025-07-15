@@ -1,6 +1,5 @@
 import { motion } from 'framer-motion';
-import { Link } from 'react-scroll';
-import { HiChevronDown, HiDownload, HiEye } from 'react-icons/hi';
+import { HiDownload, HiEye } from 'react-icons/hi';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import TypingAnimation from './TypingAnimation';
 import { useState } from 'react';
@@ -49,12 +48,6 @@ const Hero = () => {
                 Kavin Balaji S
               </span>
             </h1>
-            <div className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-2 font-medium">
-              B.Tech in Computer and Communication Engineering
-            </div>
-            <div className="text-lg md:text-xl text-gray-500 dark:text-gray-400 font-normal">
-              Amrita Vishwa Vidyapeetham
-            </div>
           </motion.div>
 
           <motion.div variants={itemVariants} className="mb-8">

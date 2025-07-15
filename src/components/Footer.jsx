@@ -1,14 +1,6 @@
 import { motion } from 'framer-motion';
-import { FaGithub, FaLinkedin, FaTwitter, FaEnvelope } from 'react-icons/fa';
 
 const Footer = () => {
-  const socialLinks = [
-    { icon: FaGithub, href: 'https://github.com/kavinbalaji2005', label: 'GitHub' },
-    { icon: FaLinkedin, href: 'https://linkedin.com/in/kavinbalaji2005', label: 'LinkedIn' },
-    { icon: FaTwitter, href: 'https://twitter.com', label: 'Twitter' },
-    { icon: FaEnvelope, href: 'mailto:kavin@example.com', label: 'Email' },
-  ];
-
   return (
     <footer className="text-gray-900 dark:text-white py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

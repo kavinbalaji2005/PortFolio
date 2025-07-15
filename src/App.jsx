@@ -1,19 +1,21 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
 import Skills from './components/Skills';
 import Projects from './components/Projects';
-import Certifications from './components/Certifications';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import ScrollProgressBar from './components/ScrollProgressBar';
 import { ThemeProvider } from './contexts/ThemeContext';
 
 function App() {
   return (
     <ThemeProvider>
       <div className="min-h-screen bg-white dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-800 dark:to-black transition-colors duration-300 relative overflow-hidden">
+        {/* Scroll Progress Bar */}
+        <ScrollProgressBar />
+        
         {/* Global Animated Background Elements */}
         <div className="fixed inset-0 overflow-hidden pointer-events-none">
           {/* Primary floating element */}
@@ -146,7 +148,6 @@ function App() {
             <About />
             <Skills />
             <Projects />
-            {/* <Certifications /> */}
             <Contact />
           </main>
           <Footer />

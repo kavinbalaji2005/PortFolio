@@ -1,248 +1,250 @@
-import { useState } from 'react';
-import { motion } from 'framer-motion';
-import emailjs from 'emailjs-com';
-import { HiMail, HiLocationMarker, HiPaperAirplane } from 'react-icons/hi';
+import { useState } from "react";
+import { Mail, MapPin, Send, CheckCircle, XCircle } from "lucide-react";
+import emailjs from "emailjs-com";
 
-const Contact = () => {
+export default function ContactPortfolio() {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: ''
+    name: "",
+    email: "",
+    message: "",
   });
   const [isLoading, setIsLoading] = useState(false);
-  const [showToast, setShowToast] = useState({ show: false, message: '', type: '' });
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { y: 30, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        duration: 0.6,
-        ease: 'easeOut',
-      },
-    },
-  };
+  const [showToast, setShowToast] = useState({
+    show: false,
+    message: "",
+    type: "",
+  });
 
   const handleInputChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
   const showToastMessage = (message, type) => {
     setShowToast({ show: true, message, type });
     setTimeout(() => {
-      setShowToast({ show: false, message: '', type: '' });
+      setShowToast({ show: false, message: "", type: "" });
     }, 5000);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    // Basic validation
-    if (!formData.name || !formData.email || !formData.message) {
-      showToastMessage('Please fill in all fields', 'error');
+
+    // Trim whitespace from inputs
+    const trimmedData = {
+      name: formData.name.trim(),
+      email: formData.email.trim(),
+      message: formData.message.trim(),
+    };
+
+    if (!trimmedData.name || !trimmedData.email || !trimmedData.message) {
+      showToastMessage("Please fill in all fields", "error");
+      return;
+    }
+
+    // Basic email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(trimmedData.email)) {
+      showToastMessage("Please enter a valid email address", "error");
       return;
     }
 
     setIsLoading(true);
 
     try {
-      // EmailJS credentials
-      const result = await emailjs.send(
-        'service_wgtzyrq', //  EmailJS service ID
-        'template_pxebjzr', // EmailJS template ID
+      await emailjs.send(
+        "service_wgtzyrq",
+        "template_pxebjzr",
         {
-          from_name: formData.name,
-          from_email: formData.email,
-          message: formData.message,
-          to_email: 'kavinbalaji@gmail.com' // email
+          from_name: trimmedData.name,
+          from_email: trimmedData.email,
+          message: trimmedData.message,
+          to_email: "kavinbalaji@gmail.com",
         },
-        'xpqW92qWBr5drGR00' // EmailJS public key
+        "xpqW92qWBr5drGR00"
       );
 
-      showToastMessage('Message sent successfully! I\'ll get back to you soon.', 'success');
-      setFormData({ name: '', email: '', message: '' });
+      showToastMessage(
+        "Message sent successfully! I'll get back to you soon.",
+        "success"
+      );
+      setFormData({ name: "", email: "", message: "" });
     } catch (error) {
-      console.error('EmailJS error:', error);
-      showToastMessage('Failed to send message. Please try again later.', 'error');
+      console.error("EmailJS error:", error);
+      showToastMessage(
+        "Failed to send message. Please try again later.",
+        "error"
+      );
     }
 
     setIsLoading(false);
   };
 
-  const contactInfo = [
-    {
-      icon: HiMail,
-      label: 'Email',
-      value: 'kavinbalaji@gmail.com',
-    },
-    {
-      icon: HiLocationMarker,
-      label: 'Location',
-      value: 'Coimbatore, Tamil Nadu, India',
-    }
-  ];
-
   return (
-    <section id="contact" className="py-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-        >
-          <motion.div variants={itemVariants} className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-semibold text-gray-900 dark:text-white mb-4">
-              Contact Me
-            </h2>
-            <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-teal-500 mx-auto rounded-full"></div>
-            <p className="text-lg text-gray-600 dark:text-gray-300 mt-6 max-w-2xl mx-auto">
-              Have a project in mind? Let's discuss how we can bring your ideas to life
-            </p>
-          </motion.div>
+    <section id="contact" className="relative w-full py-20 md:py-32">
+      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        {/* Section Header */}
+        <div className="text-center mb-16">
+          <h2 className="font-geist bg-[linear-gradient(180deg,_#FFF_0%,_rgba(255,_255,_255,_0.00)_202.08%)] bg-clip-text text-4xl md:text-5xl font-bold tracking-tighter text-transparent mb-4">
+            Get In Touch
+          </h2>
+          <div className="mx-auto h-1 w-24 rounded-full bg-gradient-to-r from-blue-400 via-purple-400 to-teal-400"></div>
+          <p className="mt-6 text-lg text-gray-400 max-w-2xl mx-auto">
+            Have a question or want to work together? Feel free to reach out!
+          </p>
+        </div>
 
-          <div className="grid lg:grid-cols-2 gap-12">
-            {/* Contact Information */}
-            <motion.div variants={itemVariants} className="space-y-8">
+        <div className="grid lg:grid-cols-2 gap-12">
+          {/* Contact Info */}
+          <div className="space-y-8">
+            <div className="space-y-6">
+              <div className="group relative overflow-hidden rounded-2xl border border-white/10 bg-neutral-900/50 backdrop-blur-sm p-6 transition-all hover:border-white/20 hover:bg-neutral-900/80">
+                <div className="flex items-start gap-4">
+                  <div className="p-3 rounded-xl bg-gradient-to-br from-blue-500 to-purple-500">
+                    <Mail className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold text-white mb-1">
+                      Email
+                    </h3>
+                    <a
+                      href="mailto:kavinbalaji@gmail.com"
+                      className="text-gray-400 hover:text-blue-400 transition-colors"
+                    >
+                      kavinbalaji@gmail.com
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <div className="group relative overflow-hidden rounded-2xl border border-white/10 bg-neutral-900/50 backdrop-blur-sm p-6 transition-all hover:border-white/20 hover:bg-neutral-900/80">
+                <div className="flex items-start gap-4">
+                  <div className="p-3 rounded-xl bg-gradient-to-br from-teal-500 to-green-500">
+                    <MapPin className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold text-white mb-1">
+                      Location
+                    </h3>
+                    <p className="text-gray-400">
+                      Coimbatore, Tamil Nadu, India
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Contact Form */}
+          <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-neutral-900/50 backdrop-blur-sm p-8">
+            <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <h3 className="text-2xl font-semibold text-gray-900 dark:text-white mb-6">
-                  Get in Touch
-                </h3>
-                <p className="text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
-                  I'm always open to discussing new opportunities, innovative projects, and creative ideas. 
-                  Whether you have a question or just want to say hi, I'll try my best to get back to you!
-                </p>
+                <label
+                  htmlFor="name"
+                  className="block text-sm font-medium text-gray-300 mb-2"
+                >
+                  Name
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-3 rounded-xl border border-white/10 bg-neutral-900/50 text-white placeholder-gray-500 focus:outline-none focus:border-purple-500/50 focus:ring-2 focus:ring-purple-500/20 transition-all"
+                  placeholder="Your name"
+                  required
+                  minLength="2"
+                  maxLength="100"
+                />
               </div>
 
-              <div className="space-y-4">
-                {contactInfo.map((info, index) => (
-                  <motion.a
-                    key={index}
-                    href={info.href}
-                    whileHover={{ scale: 1.02, x: 5 }}
-                    className="flex items-center space-x-4 p-4 backdrop-blur-md bg-gray-200/80 dark:bg-white/10 border border-gray-300/60 dark:border-white/20 rounded-2xl shadow-lg hover:shadow-2xl hover:bg-gray-300/80 dark:hover:bg-white/15 hover:backdrop-blur-xl transition-all duration-300"
-                  >
-                    <div className="w-12 h-12 bg-gradient-to-r from-blue-600 to-teal-500 rounded-full flex items-center justify-center">
-                      <info.icon className="w-6 h-6 text-white" />
-                    </div>
-                    <div>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">{info.label}</p>
-                      <p className="text-gray-900 dark:text-white font-medium">{info.value}</p>
-                    </div>
-                  </motion.a>
-                ))}
+              <div>
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium text-gray-300 mb-2"
+                >
+                  Email
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-3 rounded-xl border border-white/10 bg-neutral-900/50 text-white placeholder-gray-500 focus:outline-none focus:border-purple-500/50 focus:ring-2 focus:ring-purple-500/20 transition-all"
+                  placeholder="your@email.com"
+                  required
+                />
               </div>
-            </motion.div>
 
-            {/* Contact Form */}
-            <motion.div variants={itemVariants}>
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                    Full Name *
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleInputChange}
-                    required
-                    className="w-full px-4 py-3 backdrop-blur-md bg-gray-200/80 dark:bg-white/10 border border-gray-300/60 dark:border-white/20 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent focus:bg-gray-300/80 dark:focus:bg-white/15 transition-all duration-300 text-gray-900 dark:text-white placeholder-gray-600 dark:placeholder-gray-400"
-                    placeholder="Your name"
-                  />
-                </div>
+              <div>
+                <label
+                  htmlFor="message"
+                  className="block text-sm font-medium text-gray-300 mb-2"
+                >
+                  Message
+                </label>
+                <textarea
+                  id="message"
+                  name="message"
+                  value={formData.message}
+                  onChange={handleInputChange}
+                  rows={5}
+                  className="w-full px-4 py-3 rounded-xl border border-white/10 bg-neutral-900/50 text-white placeholder-gray-500 focus:outline-none focus:border-purple-500/50 focus:ring-2 focus:ring-purple-500/20 transition-all resize-none"
+                  placeholder="Your message..."
+                  required
+                  minLength="10"
+                  maxLength="1000"
+                />
+              </div>
 
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                    Email Address *
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    required
-                    className="w-full px-4 py-3 backdrop-blur-md bg-gray-200/80 dark:bg-white/10 border border-gray-300/60 dark:border-white/20 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent focus:bg-gray-300/80 dark:focus:bg-white/15 transition-all duration-300 text-gray-900 dark:text-white placeholder-gray-600 dark:placeholder-gray-400"
-                    placeholder="your.email@example.com"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                    Message *
-                  </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    value={formData.message}
-                    onChange={handleInputChange}
-                    required
-                    rows={6}
-                    className="w-full px-4 py-3 backdrop-blur-md bg-gray-200/80 dark:bg-white/10 border border-gray-300/60 dark:border-white/20 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent focus:bg-gray-300/80 dark:focus:bg-white/15 transition-all duration-300 text-gray-900 dark:text-white placeholder-gray-600 dark:placeholder-gray-400 resize-none"
-                    placeholder="Tell me about your project..."
-                  />
-                </div>
-
-                <motion.button
+              <span className="relative inline-block overflow-hidden rounded-full p-[1.5px] w-full">
+                <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
+                <button
                   type="submit"
                   disabled={isLoading}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className={`w-full px-8 py-4 bg-gradient-to-r from-blue-600 to-teal-500 text-white rounded-xl font-medium shadow-lg hover:shadow-xl transition-all duration-200 flex items-center justify-center space-x-2 ${
-                    isLoading ? 'opacity-75 cursor-not-allowed' : ''
-                  }`}
+                  className="relative inline-flex w-full items-center justify-center gap-2 rounded-full border-[1px] border-input bg-gradient-to-tr from-zinc-300/5 via-purple-400/20 to-transparent px-8 py-4 text-center font-medium text-white transition-colors hover:bg-transparent/90 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isLoading ? (
                     <>
-                      <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                      <span>Sending...</span>
+                      <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                      Sending...
                     </>
                   ) : (
                     <>
-                      <HiPaperAirplane className="w-5 h-5" />
-                      <span>Send Message</span>
+                      <Send className="w-5 h-5" />
+                      Send Message
                     </>
                   )}
-                </motion.button>
-              </form>
-            </motion.div>
+                </button>
+              </span>
+            </form>
           </div>
-        </motion.div>
+        </div>
       </div>
 
       {/* Toast Notification */}
       {showToast.show && (
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 50 }}
-          className={`fixed bottom-4 right-4 px-6 py-4 backdrop-blur-md border border-gray-300/60 dark:border-white/20 rounded-xl shadow-lg text-white z-50 ${
-            showToast.type === 'success' 
-              ? 'bg-green-500/80 dark:bg-green-600/80' 
-              : 'bg-red-500/80 dark:bg-red-600/80'
-          }`}
-        >
-          {showToast.message}
-        </motion.div>
+        <div className="fixed bottom-8 right-8 z-50 animate-in slide-in-from-right">
+          <div
+            className={`flex items-center gap-3 px-6 py-4 rounded-xl border ${
+              showToast.type === "success"
+                ? "bg-green-500/10 border-green-500/20 text-green-400"
+                : "bg-red-500/10 border-red-500/20 text-red-400"
+            } backdrop-blur-sm shadow-lg`}
+          >
+            {showToast.type === "success" ? (
+              <CheckCircle className="w-5 h-5" />
+            ) : (
+              <XCircle className="w-5 h-5" />
+            )}
+            <p className="text-sm font-medium">{showToast.message}</p>
+          </div>
+        </div>
       )}
     </section>
   );
-};
-
-export default Contact;
+}

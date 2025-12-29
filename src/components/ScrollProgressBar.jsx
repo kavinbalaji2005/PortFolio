@@ -35,12 +35,12 @@ const ScrollProgressBar = () => {
   }, [handleScroll]);
 
   return (
-    <div className="fixed top-0 left-0 right-0 z-[100] h-2 bg-gray-200/20 dark:bg-gray-800/20 backdrop-blur-sm shadow-lg">
+    <div className="fixed top-0 left-0 right-0 z-[100] h-1 bg-neutral-900/50 backdrop-blur-sm">
       <motion.div
         className="h-full relative overflow-hidden"
         style={{
-          background: 'linear-gradient(90deg, #3b82f6 0%, #8b5cf6 35%, #ec4899 70%, #f59e0b 100%)',
-          boxShadow: '0 0 30px rgba(59, 130, 246, 0.6), 0 0 60px rgba(139, 92, 246, 0.4), 0 0 80px rgba(236, 72, 153, 0.3)',
+          background: 'linear-gradient(90deg, #3b82f6 0%, #8b5cf6 35%, #ec4899 70%, #14b8a6 100%)',
+          boxShadow: '0 0 20px rgba(59, 130, 246, 0.5), 0 0 40px rgba(139, 92, 246, 0.3)',
         }}
         initial={{ width: '0%' }}
         animate={{ width: `${scrollProgress}%` }}

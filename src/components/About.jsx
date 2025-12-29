@@ -1,111 +1,73 @@
-import { motion } from 'framer-motion';
-import { HiCode} from 'react-icons/hi';
+import { Code, Sparkles, GraduationCap } from "lucide-react";
 
-const About = () => {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { y: 30, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        duration: 0.6,
-        ease: 'easeOut',
-      },
-    },
-  };
-
+export default function AboutPortfolio() {
   return (
-    <section id="about" className="py-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-        >
-          <motion.div variants={itemVariants} className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-semibold text-gray-900 dark:text-white mb-4">
-              About Me
-            </h2>
-            <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-teal-500 mx-auto rounded-full"></div>
-          </motion.div>
+    <section id="about" className="relative w-full py-20 md:py-32">
+      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        {/* Section Header */}
+        <div className="text-center mb-16">
+          <h2 className="font-geist bg-[linear-gradient(180deg,_#FFF_0%,_rgba(255,_255,_255,_0.00)_202.08%)] bg-clip-text text-4xl md:text-5xl font-bold tracking-tighter text-transparent mb-4">
+            About Me
+          </h2>
+          <div className="mx-auto h-1 w-24 rounded-full bg-gradient-to-r from-blue-400 via-purple-400 to-teal-400"></div>
+        </div>
 
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <motion.div variants={itemVariants} className="relative">
-              {/* Gradient border container */}
-              <div className="relative mx-auto w-80 h-80 rounded-full p-1 bg-gradient-to-r from-blue-600 via-purple-600 to-teal-500 shadow-2xl">
-                {/* Inner image container */}
-                <div className="relative w-full h-full backdrop-blur-md bg-gray-200/80 dark:bg-white/10 rounded-full overflow-hidden">
-                  <img
-                    src="/ProfilePic.png"
-                    alt="Kavin Balaji S"
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-blue-600/20 to-transparent"></div>
-                </div>
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+          {/* Profile Image */}
+          <div className="relative mx-auto">
+            <div className="relative w-64 h-64 sm:w-72 sm:h-72 md:w-80 md:h-80 rounded-full p-[2px] bg-gradient-to-r from-blue-400 via-purple-400 to-teal-400">
+              <div className="relative w-full h-full rounded-full overflow-hidden bg-neutral-900">
+                <img
+                  src="/ProfilePic.png"
+                  alt="Kavin Balaji S"
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-blue-600/20 to-transparent"></div>
               </div>
-              <motion.div
-                animate={{
-                  rotate: [0, 360],
-                }}
-                transition={{
-                  duration: 20,
-                  repeat: Infinity,
-                  ease: 'linear',
-                }}
-                className="absolute -top-4 -right-4 w-16 h-16 backdrop-blur-md bg-gradient-to-r from-blue-600/80 to-teal-500/80 border border-gray-400/50 dark:border-white/20 rounded-full flex items-center justify-center shadow-lg"
-              >
-                <HiCode className="w-8 h-8 text-white" />
-              </motion.div>
-            </motion.div>
+            </div>
+          </div>
 
-            <motion.div variants={itemVariants} className="space-y-6">
-              <div>
-                <h3 className="text-2xl font-semibold text-gray-900 dark:text-white mb-4">
+          {/* Content */}
+          <div className="space-y-6">
+            <div className="space-y-4">
+              <div className="flex items-center gap-2">
+                <h3 className="text-xl sm:text-2xl font-semibold text-white">
                   Engineering Student & Tech Enthusiast
                 </h3>
-                <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
-                  I'm a passionate Engineering student, with a strong focus on full-stack development and cloud technologies. My journey in technology 
-                  is driven by curiosity and a desire to create innovative solutions that make a difference.
-                </p>
               </div>
+              <p className="text-lg text-gray-300 leading-relaxed">
+                I'm a passionate Engineering student, with a strong focus on
+                software development and cloud computing. My journey in
+                technology is driven by curiosity and a desire to create
+                innovative solutions that make a difference. I enjoy exploring
+                emerging technologies.
+              </p>
+            </div>
 
-              <div>
-                <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
-                  I enjoy exploring emerging technologies and contributing to open-source projects that push the boundaries of what's possible.
-                </p>
-              </div>
-
-              <div className="bg-gradient-to-r from-blue-50 to-teal-50 dark:from-blue-900/20 dark:to-teal-900/20 p-6 rounded-lg border border-blue-200/30 dark:border-blue-800/30 shadow-lg">
-                <h4 className="text-xl font-semibold text-blue-800 dark:text-blue-300 mb-3">
-                  Education
-                </h4>
+            {/* Education Card */}
+            <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-blue-900/20 via-purple-900/10 to-teal-900/20 p-6 shadow-xl backdrop-blur-sm">
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-500/5"></div>
+              <div className="relative z-10">
+                <div className="flex items-center gap-2 mb-3">
+                  <GraduationCap className="w-6 h-6 text-blue-400" />
+                  <h4 className="text-xl font-semibold text-blue-300">
+                    Education
+                  </h4>
+                </div>
                 <div className="space-y-2">
-                  <p className="text-lg font-medium text-gray-900 dark:text-white">
+                  <p className="text-lg font-medium text-white">
                     B.Tech in Computer and Communication Engineering
                   </p>
-                  <p className="text-md text-blue-600 dark:text-blue-400 font-medium">
+                  <p className="text-md text-blue-400 font-medium">
                     Amrita Vishwa Vidyapeetham, Coimbatore
                   </p>
+                  <p className="text-sm text-gray-400">2023 - 2027</p>
                 </div>
               </div>
-
-            </motion.div>
+            </div>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
-};
-
-export default About;
+}

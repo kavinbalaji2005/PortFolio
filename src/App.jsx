@@ -1,51 +1,64 @@
-import Navbar from "./components/Navbar";
+import { ScrollProvider } from "./components/ScrollContext";
+import Layout from "./components/Layout";
+import Navigation from "./components/Navigation";
+import ScrollProgress from "./components/ScrollProgress";
 import Hero from "./components/Hero";
 import About from "./components/About";
 import Skills from "./components/Skills";
 import Projects from "./components/Projects";
 import Certifications from "./components/Certifications";
 import Contact from "./components/Contact";
-import Footer from "./components/Footer";
-import ScrollProgressBar from "./components/ScrollProgressBar";
-import ParticlesBackground from "./components/ParticlesBackground";
-import AnimatedBackground from "./components/AnimatedBackground";
-import SectionReveal from "./components/SectionReveal";
 
 function App() {
   return (
-    <div className="min-h-screen bg-neutral-950 transition-colors duration-300 relative overflow-hidden">
-      {/* Animated Background */}
-      <AnimatedBackground />
+    <ScrollProvider>
+      {/* Skip to content link for accessibility */}
+      <a
+        href="#home"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-white focus:text-black focus:rounded-lg focus:text-sm focus:font-semibold"
+      >
+        Skip to content
+      </a>
 
-      {/* Particles Background */}
-      <ParticlesBackground />
+      <ScrollProgress />
+      <Navigation />
 
-      {/* Scroll Progress Bar */}
-      <ScrollProgressBar />
-
-      <div className="relative z-[5]">
-        <Navbar />
-        <main>
+      <Layout>
+        <section id="home" aria-label="Home" className="relative">
           <Hero />
-          <SectionReveal>
-            <About />
-          </SectionReveal>
-          <SectionReveal>
-            <Skills />
-          </SectionReveal>
-          <SectionReveal>
-            <Projects />
-          </SectionReveal>
-          <SectionReveal>
-            <Certifications />
-          </SectionReveal>
-          <SectionReveal>
-            <Contact />
-          </SectionReveal>
-        </main>
-        <Footer />
-      </div>
-    </div>
+        </section>
+
+        <div className="section-divider" />
+
+        <section id="about" aria-label="About" className="relative">
+          <About />
+        </section>
+
+        <div className="section-divider" />
+
+        <section id="skills" aria-label="Skills" className="relative">
+          <Skills />
+        </section>
+
+        <div className="section-divider" />
+
+        <section id="projects" aria-label="Projects" className="relative">
+          <Projects />
+        </section>
+
+        <div className="section-divider" />
+
+        <section id="certifications" aria-label="Certifications" className="relative">
+          <Certifications />
+        </section>
+
+        <div className="section-divider" />
+
+        <section id="contact" aria-label="Contact" className="relative">
+          <Contact />
+        </section>
+      </Layout>
+    </ScrollProvider>
   );
 }
 

@@ -1,250 +1,268 @@
 import { useState } from "react";
-import { Mail, MapPin, Send, CheckCircle, XCircle } from "lucide-react";
+import { motion } from "framer-motion";
+import {
+  Mail, MapPin, Send, CheckCircle, ArrowRight, AlertCircle,
+  Github, Linkedin,
+} from "lucide-react";
 import emailjs from "emailjs-com";
+import TextReveal from "./TextReveal";
+import FadeIn from "./FadeIn";
 
-export default function ContactPortfolio() {
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+export default function Contact() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     message: "",
   });
-  const [isLoading, setIsLoading] = useState(false);
-  const [showToast, setShowToast] = useState({
-    show: false,
-    message: "",
-    type: "",
-  });
-
-  const handleInputChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const showToastMessage = (message, type) => {
-    setShowToast({ show: true, message, type });
-    setTimeout(() => {
-      setShowToast({ show: false, message: "", type: "" });
-    }, 5000);
-  };
+  const [status, setStatus] = useState("idle");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!formData.name || !formData.email || !formData.message) return;
 
-    // Trim whitespace from inputs
-    const trimmedData = {
-      name: formData.name.trim(),
-      email: formData.email.trim(),
-      message: formData.message.trim(),
-    };
-
-    if (!trimmedData.name || !trimmedData.email || !trimmedData.message) {
-      showToastMessage("Please fill in all fields", "error");
+    if (!EMAIL_REGEX.test(formData.email)) {
+      setStatus("invalid-email");
+      setTimeout(() => setStatus("idle"), 3000);
       return;
     }
 
-    // Basic email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(trimmedData.email)) {
-      showToastMessage("Please enter a valid email address", "error");
-      return;
-    }
-
-    setIsLoading(true);
+    setStatus("loading");
 
     try {
       await emailjs.send(
         "service_wgtzyrq",
         "template_pxebjzr",
         {
-          from_name: trimmedData.name,
-          from_email: trimmedData.email,
-          message: trimmedData.message,
+          from_name: formData.name,
+          from_email: formData.email,
+          message: formData.message,
           to_email: "kavinbalaji@gmail.com",
         },
         "xpqW92qWBr5drGR00"
       );
-
-      showToastMessage(
-        "Message sent successfully! I'll get back to you soon.",
-        "success"
-      );
+      setStatus("success");
       setFormData({ name: "", email: "", message: "" });
+      setTimeout(() => setStatus("idle"), 3000);
     } catch (error) {
-      console.error("EmailJS error:", error);
-      showToastMessage(
-        "Failed to send message. Please try again later.",
-        "error"
-      );
+      console.error(error);
+      setStatus("error");
+      setTimeout(() => setStatus("idle"), 4000);
     }
+  };
 
-    setIsLoading(false);
+  const getButtonContent = () => {
+    switch (status) {
+      case "loading":
+        return (
+          <span className="w-5 h-5 border-2 border-black/30 border-t-black rounded-full animate-spin" />
+        );
+      case "success":
+        return (
+          <>
+            Sent Successfully <CheckCircle size={18} />
+          </>
+        );
+      case "error":
+        return (
+          <>
+            <span className="text-red-600">Failed to send. Try again.</span>{" "}
+            <AlertCircle size={18} className="text-red-600" />
+          </>
+        );
+      case "invalid-email":
+        return (
+          <>
+            <span className="text-red-600">Invalid email address</span>{" "}
+            <AlertCircle size={18} className="text-red-600" />
+          </>
+        );
+      default:
+        return (
+          <>
+            Send Message <ArrowRight size={18} />
+          </>
+        );
+    }
   };
 
   return (
-    <section id="contact" className="relative w-full py-20 md:py-32">
-      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="font-geist bg-[linear-gradient(180deg,_#FFF_0%,_rgba(255,_255,_255,_0.00)_202.08%)] bg-clip-text text-4xl md:text-5xl font-bold tracking-tighter text-transparent mb-4">
-            Get In Touch
-          </h2>
-          <div className="mx-auto h-1 w-24 rounded-full bg-gradient-to-r from-blue-400 via-purple-400 to-teal-400"></div>
-          <p className="mt-6 text-lg text-gray-400 max-w-2xl mx-auto">
-            Have a question or want to work together? Feel free to reach out!
-          </p>
-        </div>
+    <div className="min-h-[100dvh] flex flex-col justify-between bg-background px-6 relative overflow-hidden">
+      {/* Background Elements */}
+      <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-background via-background to-transparent pointer-events-none" />
 
-        <div className="grid lg:grid-cols-2 gap-12">
-          {/* Contact Info */}
+      {/* Main Content */}
+      <div className="flex-1 flex items-center py-16 md:py-24">
+        <div className="max-w-6xl w-full mx-auto z-10 grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center">
+          {/* Info Side */}
           <div className="space-y-8">
-            <div className="space-y-6">
-              <div className="group relative overflow-hidden rounded-2xl border border-white/10 bg-neutral-900/50 backdrop-blur-sm p-6 transition-all hover:border-white/20 hover:bg-neutral-900/80">
-                <div className="flex items-start gap-4">
-                  <div className="p-3 rounded-xl bg-gradient-to-br from-blue-500 to-purple-500">
-                    <Mail className="w-6 h-6 text-white" />
+            <TextReveal
+              text="Let's work together."
+              as="h2"
+              className="text-5xl md:text-7xl font-bold text-white tracking-tighter leading-tight"
+              stagger={0.08}
+            />
+
+            <FadeIn delay={0.4}>
+              <div className="space-y-6">
+                <a
+                  href="mailto:kavinbalaji@gmail.com"
+                  className="group flex items-center gap-4 text-xl text-text-secondary hover:text-white transition-colors"
+                >
+                  <div className="w-12 h-12 rounded-full bg-surface border border-white/10 flex items-center justify-center group-hover:border-primary/30 group-hover:shadow-glow-primary transition-all duration-300">
+                    <Mail className="w-5 h-5" aria-hidden="true" />
                   </div>
-                  <div>
-                    <h3 className="text-lg font-semibold text-white mb-1">
-                      Email
-                    </h3>
-                    <a
-                      href="mailto:kavinbalaji@gmail.com"
-                      className="text-gray-400 hover:text-blue-400 transition-colors"
-                    >
-                      kavinbalaji@gmail.com
-                    </a>
+                  <span>kavinbalaji@gmail.com</span>
+                </a>
+
+                <div className="flex items-center gap-4 text-xl text-text-secondary">
+                  <div className="w-12 h-12 rounded-full bg-surface border border-white/10 flex items-center justify-center">
+                    <MapPin className="w-5 h-5" aria-hidden="true" />
                   </div>
+                  <span>Coimbatore, India</span>
                 </div>
               </div>
+            </FadeIn>
+          </div>
 
-              <div className="group relative overflow-hidden rounded-2xl border border-white/10 bg-neutral-900/50 backdrop-blur-sm p-6 transition-all hover:border-white/20 hover:bg-neutral-900/80">
-                <div className="flex items-start gap-4">
-                  <div className="p-3 rounded-xl bg-gradient-to-br from-teal-500 to-green-500">
-                    <MapPin className="w-6 h-6 text-white" />
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-semibold text-white mb-1">
-                      Location
-                    </h3>
-                    <p className="text-gray-400">
-                      Coimbatore, Tamil Nadu, India
+          {/* Form Side */}
+          <FadeIn direction="up" delay={0.3} distance={80}>
+            <div className="bg-surface/50 backdrop-blur-xl border border-white/10 rounded-[32px] p-6 md:p-10 shadow-2xl">
+              <form onSubmit={handleSubmit} className="space-y-6" noValidate>
+                <div className="space-y-2">
+                  <label
+                    htmlFor="contact-name"
+                    className="text-sm font-medium text-text-secondary ml-1"
+                  >
+                    Name
+                  </label>
+                  <input
+                    id="contact-name"
+                    type="text"
+                    placeholder="John Doe"
+                    required
+                    className="w-full bg-black/30 border border-white/15 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-primary/60 focus:bg-black/40 focus:shadow-[0_0_20px_rgba(41,151,255,0.1)] transition-all placeholder:text-white/25"
+                    value={formData.name}
+                    onChange={(e) =>
+                      setFormData({ ...formData, name: e.target.value })
+                    }
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <label
+                    htmlFor="contact-email"
+                    className="text-sm font-medium text-text-secondary ml-1"
+                  >
+                    Email
+                  </label>
+                  <input
+                    id="contact-email"
+                    type="email"
+                    placeholder="john@example.com"
+                    required
+                    className={`w-full bg-black/30 border rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-primary/60 focus:bg-black/40 focus:shadow-[0_0_20px_rgba(41,151,255,0.1)] transition-all placeholder:text-white/25 ${
+                      status === "invalid-email"
+                        ? "border-red-500/50"
+                        : "border-white/15"
+                    }`}
+                    value={formData.email}
+                    onChange={(e) =>
+                      setFormData({ ...formData, email: e.target.value })
+                    }
+                  />
+                  {status === "invalid-email" && (
+                    <p className="text-red-400 text-xs ml-1">
+                      Please enter a valid email address.
                     </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Contact Form */}
-          <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-neutral-900/50 backdrop-blur-sm p-8">
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div>
-                <label
-                  htmlFor="name"
-                  className="block text-sm font-medium text-gray-300 mb-2"
-                >
-                  Name
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleInputChange}
-                  className="w-full px-4 py-3 rounded-xl border border-white/10 bg-neutral-900/50 text-white placeholder-gray-500 focus:outline-none focus:border-purple-500/50 focus:ring-2 focus:ring-purple-500/20 transition-all"
-                  placeholder="Your name"
-                  required
-                  minLength="2"
-                  maxLength="100"
-                />
-              </div>
-
-              <div>
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-medium text-gray-300 mb-2"
-                >
-                  Email
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  className="w-full px-4 py-3 rounded-xl border border-white/10 bg-neutral-900/50 text-white placeholder-gray-500 focus:outline-none focus:border-purple-500/50 focus:ring-2 focus:ring-purple-500/20 transition-all"
-                  placeholder="your@email.com"
-                  required
-                />
-              </div>
-
-              <div>
-                <label
-                  htmlFor="message"
-                  className="block text-sm font-medium text-gray-300 mb-2"
-                >
-                  Message
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  value={formData.message}
-                  onChange={handleInputChange}
-                  rows={5}
-                  className="w-full px-4 py-3 rounded-xl border border-white/10 bg-neutral-900/50 text-white placeholder-gray-500 focus:outline-none focus:border-purple-500/50 focus:ring-2 focus:ring-purple-500/20 transition-all resize-none"
-                  placeholder="Your message..."
-                  required
-                  minLength="10"
-                  maxLength="1000"
-                />
-              </div>
-
-              <span className="relative inline-block overflow-hidden rounded-full p-[1.5px] w-full">
-                <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
-                <button
-                  type="submit"
-                  disabled={isLoading}
-                  className="relative inline-flex w-full items-center justify-center gap-2 rounded-full border-[1px] border-input bg-gradient-to-tr from-zinc-300/5 via-purple-400/20 to-transparent px-8 py-4 text-center font-medium text-white transition-colors hover:bg-transparent/90 disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  {isLoading ? (
-                    <>
-                      <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                      Sending...
-                    </>
-                  ) : (
-                    <>
-                      <Send className="w-5 h-5" />
-                      Send Message
-                    </>
                   )}
+                </div>
+
+                <div className="space-y-2">
+                  <label
+                    htmlFor="contact-message"
+                    className="text-sm font-medium text-text-secondary ml-1"
+                  >
+                    Message
+                  </label>
+                  <textarea
+                    id="contact-message"
+                    rows={4}
+                    placeholder="Tell me about your project..."
+                    required
+                    className="w-full bg-black/30 border border-white/15 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-primary/60 focus:bg-black/40 focus:shadow-[0_0_20px_rgba(41,151,255,0.1)] transition-all placeholder:text-white/25 resize-none"
+                    value={formData.message}
+                    onChange={(e) =>
+                      setFormData({ ...formData, message: e.target.value })
+                    }
+                  />
+                </div>
+
+                <button
+                  disabled={status === "loading"}
+                  className="group relative w-full bg-white text-black font-bold rounded-2xl py-4 flex items-center justify-center gap-2 hover:bg-gray-100 hover:shadow-glow-white active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed overflow-hidden"
+                >
+                  {/* Idle shimmer */}
+                  {status === "idle" && (
+                    <span className="absolute inset-0 overflow-hidden rounded-2xl">
+                      <span
+                        className="absolute inset-0 bg-gradient-to-r from-transparent via-black/5 to-transparent"
+                        style={{
+                          animation: "shine-sweep 3s ease-in-out infinite",
+                        }}
+                      />
+                    </span>
+                  )}
+                  <span className="relative z-10 flex items-center gap-2">
+                    {getButtonContent()}
+                  </span>
                 </button>
-              </span>
-            </form>
-          </div>
+              </form>
+            </div>
+          </FadeIn>
         </div>
       </div>
 
-      {/* Toast Notification */}
-      {showToast.show && (
-        <div className="fixed bottom-8 right-8 z-50 animate-in slide-in-from-right">
-          <div
-            className={`flex items-center gap-3 px-6 py-4 rounded-xl border ${
-              showToast.type === "success"
-                ? "bg-green-500/10 border-green-500/20 text-green-400"
-                : "bg-red-500/10 border-red-500/20 text-red-400"
-            } backdrop-blur-sm shadow-lg`}
-          >
-            {showToast.type === "success" ? (
-              <CheckCircle className="w-5 h-5" />
-            ) : (
-              <XCircle className="w-5 h-5" />
-            )}
-            <p className="text-sm font-medium">{showToast.message}</p>
+      {/* Gradient divider above footer */}
+      <div className="section-divider" />
+
+      {/* Footer */}
+      <footer className="py-8 px-6 z-10">
+        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-text-secondary">
+          <div className="flex flex-col sm:flex-row items-center gap-2">
+            <p className="text-white/60">© {new Date().getFullYear()} Kavin Balaji S. All rights reserved.</p>
+
+          </div>
+          <div className="flex items-center gap-4">
+            <a
+              href="https://github.com/kavinbalaji2005"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="GitHub"
+              className="hover:text-white transition-colors"
+            >
+              <Github size={16} />
+            </a>
+            <a
+              href="https://www.linkedin.com/in/kavinbalaji2005/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn"
+              className="hover:text-white transition-colors"
+            >
+              <Linkedin size={16} />
+            </a>
+            <a
+              href="mailto:kavinbalaji@gmail.com"
+              aria-label="Email"
+              className="hover:text-white transition-colors"
+            >
+              <Mail size={16} />
+            </a>
           </div>
         </div>
-      )}
-    </section>
+      </footer>
+    </div>
   );
 }

@@ -1,11 +1,12 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
-  darkMode: "class",
   theme: {
     extend: {
       fontFamily: {
         sans: [
+          "SF Pro Display",
+          "SF Pro Text",
           "Inter",
           "system-ui",
           "-apple-system",
@@ -16,78 +17,66 @@ export default {
         ],
       },
       colors: {
-        blue: {
-          50: "#eff6ff",
-          100: "#dbeafe",
-          200: "#bfdbfe",
-          300: "#93c5fd",
-          400: "#60a5fa",
-          500: "#3b82f6",
-          600: "#007AFF", // Apple blue
-          700: "#1d4ed8",
-          800: "#1e40af",
-          900: "#1e3a8a",
+        background: "#0d0d0d",
+        surface: "#1c1c1e",
+        primary: "#2997ff",
+        secondary: "#30d158",
+        accent: "#bf5af2",
+        text: {
+          primary: "#f5f5f7",
+          secondary: "#86868b",
         },
-        teal: {
-          50: "#f0fdfa",
-          100: "#ccfbf1",
-          200: "#99f6e4",
-          300: "#5eead4",
-          400: "#2dd4bf",
-          500: "#5AC8FA", // Apple teal
-          600: "#0d9488",
-          700: "#0f766e",
-          800: "#115e59",
-          900: "#134e4a",
-        },
-        orange: {
-          50: "#fff7ed",
-          100: "#ffedd5",
-          200: "#fed7aa",
-          300: "#fdba74",
-          400: "#fb923c",
-          500: "#FF9500", // Apple orange
-          600: "#ea580c",
-          700: "#c2410c",
-          800: "#9a3412",
-          900: "#7c2d12",
-        },
-        purple: {
-          50: "#faf5ff",
-          100: "#f3e8ff",
-          200: "#e9d5ff",
-          300: "#d8b4fe",
-          400: "#c084fc",
-          500: "#a855f7",
-          600: "#9333ea",
-          700: "#7c3aed",
-          800: "#6b21a8",
-          900: "#581c87",
-          950: "#3b0764",
-        },
+      },
+      boxShadow: {
+        "glow-primary": "0 0 30px rgba(41, 151, 255, 0.25), 0 0 60px rgba(41, 151, 255, 0.1)",
+        "glow-accent": "0 0 30px rgba(191, 90, 242, 0.25), 0 0 60px rgba(191, 90, 242, 0.1)",
+        "glow-secondary": "0 0 30px rgba(48, 209, 88, 0.25), 0 0 60px rgba(48, 209, 88, 0.1)",
+        "glow-white": "0 0 30px rgba(255, 255, 255, 0.15), 0 0 60px rgba(255, 255, 255, 0.05)",
+      },
+      borderRadius: {
+        "4xl": "2rem",
+        "5xl": "2.5rem",
       },
       animation: {
-        grid: "grid 15s linear infinite",
-        blob: "blob 7s infinite",
+        "fade-in": "fadeIn 1s ease-out forwards",
+        "slide-up": "slideUp 0.8s ease-out forwards",
+        "slide-in-right": "slideInRight 0.8s ease-out forwards",
+        "float": "float 6s ease-in-out infinite",
+        "orbit": "orbit 20s linear infinite",
+        "shimmer": "shimmer 6s ease-in-out infinite",
+        "pulse-glow": "pulse-glow 3s ease-in-out infinite",
       },
       keyframes: {
-        grid: {
-          "0%": { transform: "translateY(0)" },
-          "100%": { transform: "translateY(-50%)" },
+        fadeIn: {
+          "0%": { opacity: "0" },
+          "100%": { opacity: "1" },
         },
-        blob: {
-          "0%": {
-            transform: "translate(0px, 0px) scale(1)",
-          },
-          "33%": {
-            transform: "translate(30px, -50px) scale(1.1)",
-          },
-          "66%": {
-            transform: "translate(-20px, 20px) scale(0.9)",
-          },
-          "100%": {
-            transform: "translate(0px, 0px) scale(1)",
-          },
+        slideUp: {
+          "0%": { opacity: "0", transform: "translateY(20px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+        slideInRight: {
+          "0%": { opacity: "0", transform: "translateX(50px)" },
+          "100%": { opacity: "1", transform: "translateX(0)" },
+        },
+        float: {
+          "0%, 100%": { transform: "translateY(0) scale(1)" },
+          "50%": { transform: "translateY(-20px) scale(1.02)" },
+        },
+        orbit: {
+          "0%": { transform: "translate(0, 0) rotate(0deg)" },
+          "25%": { transform: "translate(30px, -20px) rotate(90deg)" },
+          "50%": { transform: "translate(0, -40px) rotate(180deg)" },
+          "75%": { transform: "translate(-30px, -20px) rotate(270deg)" },
+          "100%": { transform: "translate(0, 0) rotate(360deg)" },
+        },
+        shimmer: {
+          "0%": { backgroundPosition: "-200% center" },
+          "100%": { backgroundPosition: "200% center" },
+        },
+        "pulse-glow": {
+          "0%, 100%": { opacity: "0.5" },
+          "50%": { opacity: "1" },
         },
       },
     },

@@ -1,73 +1,91 @@
-import { Code, Sparkles, GraduationCap } from "lucide-react";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import TextReveal from "./TextReveal";
+import ScrollReveal from "./ScrollReveal";
 
-export default function AboutPortfolio() {
+export default function About() {
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+
+  const blobY = useTransform(scrollYProgress, [0, 1], [200, -200]);
+  const imageY = useTransform(scrollYProgress, [0, 1], [100, -100]);
+
+
+
   return (
-    <section id="about" className="relative w-full py-20 md:py-32">
-      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="font-geist bg-[linear-gradient(180deg,_#FFF_0%,_rgba(255,_255,_255,_0.00)_202.08%)] bg-clip-text text-4xl md:text-5xl font-bold tracking-tighter text-transparent mb-4">
-            About Me
-          </h2>
-          <div className="mx-auto h-1 w-24 rounded-full bg-gradient-to-r from-blue-400 via-purple-400 to-teal-400"></div>
-        </div>
+    <div
+      ref={ref}
+      className="min-h-[100dvh] flex items-center justify-center bg-background px-6 md:px-20 py-24 relative overflow-hidden"
+    >
+      {/* Parallax background blob */}
+      {/* Blob removed */}
+      {/* Second subtle blob */}
 
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Profile Image */}
-          <div className="relative mx-auto">
-            <div className="relative w-64 h-64 sm:w-72 sm:h-72 md:w-80 md:h-80 rounded-full p-[2px] bg-gradient-to-r from-blue-400 via-purple-400 to-teal-400">
-              <div className="relative w-full h-full rounded-full overflow-hidden bg-neutral-900">
-                <img
-                  src="/ProfilePic.png"
-                  alt="Kavin Balaji S"
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-blue-600/20 to-transparent"></div>
-              </div>
-            </div>
-          </div>
 
-          {/* Content */}
-          <div className="space-y-6">
-            <div className="space-y-4">
-              <div className="flex items-center gap-2">
-                <h3 className="text-xl sm:text-2xl font-semibold text-white">
-                  Engineering Student & Tech Enthusiast
-                </h3>
-              </div>
-              <p className="text-lg text-gray-300 leading-relaxed">
-                I'm a passionate Engineering student, with a strong focus on
-                software development and cloud computing. My journey in
-                technology is driven by curiosity and a desire to create
-                innovative solutions that make a difference. I enjoy exploring
-                emerging technologies.
-              </p>
-            </div>
+      <div className="max-w-[1400px] w-full grid grid-cols-1 md:grid-cols-2 gap-16 items-center z-10">
+        {/* Image Side — parallax + scale-in */}
+        <motion.div
+          style={{ y: imageY }}
+          className="order-2 md:order-1 flex justify-center md:justify-start"
+        >
+          <ScrollReveal scale={true} className="relative w-[300px] h-[300px] sm:w-[400px] sm:h-[400px] rounded-3xl overflow-hidden shadow-2xl shadow-black/50 group">
+              <img
+                src="/ProfilePic.png"
+                alt="Kavin Balaji S - Profile photo"
+                loading="lazy"
+                className="w-full h-full object-cover scale-110 group-hover:scale-100 transition-transform duration-700 ease-out"
+              />
+              {/* Gradient mask for softer edges */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+              <div className="absolute inset-0 shadow-[inset_0_0_40px_rgba(0,0,0,0.4)]" />
 
-            {/* Education Card */}
-            <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-blue-900/20 via-purple-900/10 to-teal-900/20 p-6 shadow-xl backdrop-blur-sm">
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-500/5"></div>
-              <div className="relative z-10">
-                <div className="flex items-center gap-2 mb-3">
-                  <GraduationCap className="w-6 h-6 text-blue-400" />
-                  <h4 className="text-xl font-semibold text-blue-300">
-                    Education
-                  </h4>
-                </div>
-                <div className="space-y-2">
-                  <p className="text-lg font-medium text-white">
-                    B.Tech in Computer and Communication Engineering
-                  </p>
-                  <p className="text-md text-blue-400 font-medium">
-                    Amrita Vishwa Vidyapeetham, Coimbatore
-                  </p>
-                  <p className="text-sm text-gray-400">2023 - 2027</p>
-                </div>
+              <div className="absolute bottom-6 left-6 text-white p-4 backdrop-blur-md bg-white/10 rounded-xl border border-white/20 shadow-lg group-hover:border-primary/30 group-hover:shadow-glow-primary transition-all duration-500">
+                <p className="text-sm font-semibold opacity-80">Education</p>
+                <p className="text-lg font-bold">
+                  Amrita Vishwa Vidyapeetham
+                </p>
+                <p className="text-sm opacity-70">B.Tech CCE (2023-2027)</p>
               </div>
+          </ScrollReveal>
+        </motion.div>
+
+        {/* Content Side */}
+        <div className="order-1 md:order-2 space-y-6">
+          <ScrollReveal yOffset={0}>
+            <div className="flex items-center gap-3">
+              {/* Decorative accent line */}
+              <div className="w-10 h-[2px] bg-white/20 rounded-full" />
+              <h2 className="text-sm font-semibold tracking-wider text-secondary uppercase">
+                About Me
+              </h2>
             </div>
-          </div>
+          </ScrollReveal>
+
+          <TextReveal
+            text="Driven by curiosity. Engineered for impact."
+            as="h3"
+            className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight"
+            delay={0.2}
+          />
+
+          <ScrollReveal yOffset={0} className="text-lg md:text-xl text-text-secondary leading-relaxed max-w-xl">
+             I am an engineering student with a deep passion for cloud
+             computing and full-stack development. Looking beyond the code, I
+             strive to understand the "why" and "how" of technology to build
+             solutions that truly matter.
+          </ScrollReveal>
+
+          <ScrollReveal yOffset={0} className="text-lg md:text-xl text-text-secondary leading-relaxed max-w-xl">
+             My journey is fueled by a constant desire to learn, adapt, and
+             innovate in an ever-evolving tech landscape.
+          </ScrollReveal>
+
+
         </div>
       </div>
-    </section>
+    </div>
   );
 }

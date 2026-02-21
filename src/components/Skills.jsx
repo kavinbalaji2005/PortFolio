@@ -1,285 +1,161 @@
-import { useState } from "react";
-import { motion } from "framer-motion";
-import TiltCard from "./TiltCard";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import {
-  SiJavascript,
-  SiReact,
-  SiNodedotjs,
-  SiPython,
-  SiGit,
-  SiMysql,
-  SiMongodb,
-  SiHtml5,
-  SiCss3,
-  SiCplusplus,
-  SiC,
-  SiArduino,
-  SiAmazonwebservices,
-  SiEspressif,
+  SiJavascript, SiReact, SiNodedotjs, SiPython, SiGit, SiMysql,
+  SiMongodb, SiHtml5, SiCss3, SiCplusplus, SiC, SiArduino,
+  SiAmazonwebservices, SiEspressif
 } from "react-icons/si";
+import TextReveal from "./TextReveal";
+import FadeIn from "./FadeIn";
+import ScrollReveal from "./ScrollReveal";
+import SpotlightCard from "./SpotlightCard";
 
-export default function SkillsPortfolio() {
-  const [activeFilter, setActiveFilter] = useState("all");
+// Brand colors for hover effects
+const brandColors = {
+  HTML: "#e34f26",
+  CSS: "#1572b6",
+  JavaScript: "#f7df1e",
+  React: "#61dafb",
+  "Node.js": "#68a063",
+  MySQL: "#00758f",
+  MongoDB: "#47a248",
+  Python: "#3776ab",
+  "C++": "#00599c",
+  C: "#555555",
+  Arduino: "#00979d",
+  ESP32: "#e7352c",
+  AWS: "#ff9900",
+  Git: "#f05032",
+};
 
-  const skills = [
-    {
-      name: "HTML",
-      icon: SiHtml5,
-      color: "#E34F26",
-      level: 95,
-      category: "frontend",
-    },
-    {
-      name: "CSS",
-      icon: SiCss3,
-      color: "#1572B6",
-      level: 90,
-      category: "frontend",
-    },
-    {
-      name: "JavaScript",
-      icon: SiJavascript,
-      color: "#F7DF1E",
-      level: 90,
-      category: "frontend",
-    },
-    {
-      name: "React",
-      icon: SiReact,
-      color: "#61DAFB",
-      level: 85,
-      category: "frontend",
-    },
-    {
-      name: "MySQL",
-      icon: SiMysql,
-      color: "#4479A1",
-      level: 75,
-      category: "backend",
-    },
-    {
-      name: "MongoDB",
-      icon: SiMongodb,
-      color: "#47A248",
-      level: 75,
-      category: "backend",
-    },
-    {
-      name: "Python",
-      icon: SiPython,
-      color: "#3776AB",
-      level: 80,
-      category: "programming",
-    },
-    {
-      name: "C++",
-      icon: SiCplusplus,
-      color: "#00599C",
-      level: 70,
-      category: "programming",
-    },
-    {
-      name: "C",
-      icon: SiC,
-      color: "#A8B9CC",
-      level: 75,
-      category: "programming",
-    },
-    {
-      name: "Arduino",
-      icon: SiArduino,
-      color: "#00979D",
-      level: 80,
-      category: "iot",
-    },
-    {
-      name: "ESP32",
-      icon: SiEspressif,
-      color: "#E7352C",
-      level: 75,
-      category: "iot",
-    },
-    {
-      name: "AWS",
-      icon: SiAmazonwebservices,
-      color: "#FF9900",
-      level: 70,
-      category: "tools",
-    },
-    {
-      name: "Git",
-      icon: SiGit,
-      color: "#F05032",
-      level: 85,
-      category: "tools",
-    },
-  ];
-
-  const filterOptions = [
-    { key: "all", label: "All Skills", count: skills.length },
-    {
-      key: "frontend",
-      label: "Frontend",
-      count: skills.filter((s) => s.category === "frontend").length,
-    },
-    {
-      key: "backend",
-      label: "Backend",
-      count: skills.filter((s) => s.category === "backend").length,
-    },
-    {
-      key: "programming",
-      label: "Programming",
-      count: skills.filter((s) => s.category === "programming").length,
-    },
-    {
-      key: "iot",
-      label: "IoT",
-      count: skills.filter((s) => s.category === "iot").length,
-    },
-    {
-      key: "tools",
-      label: "Tools",
-      count: skills.filter((s) => s.category === "tools").length,
-    },
-  ];
-
-  const filteredSkills =
-    activeFilter === "all"
-      ? skills
-      : skills.filter((skill) => skill.category === activeFilter);
+export default function Skills() {
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+  
+  const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
 
   return (
-    <section id="skills" className="relative w-full py-20 md:py-32">
-      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="font-geist bg-[linear-gradient(180deg,_#FFF_0%,_rgba(255,_255,_255,_0.00)_202.08%)] bg-clip-text text-4xl md:text-5xl font-bold tracking-tighter text-transparent mb-4">
-            Skills & Technologies
-          </h2>
-          <div className="mx-auto h-1 w-24 rounded-full bg-gradient-to-r from-blue-400 via-purple-400 to-teal-400"></div>
-          <p className="mt-6 text-lg text-gray-400 max-w-2xl mx-auto">
-            Technologies and tools I use to bring ideas to life
-          </p>
+    <div ref={ref} className="min-h-screen flex flex-col items-center justify-center bg-background px-6 py-20 relative overflow-hidden">
+      {/* Background Ambience */}
+      {/* Background Ambience Removed */}
+
+      <div className="max-w-7xl w-full z-10 flex flex-col gap-10">
+        <div className="text-center space-y-6">
+          <TextReveal
+            text="Technical Arsenal"
+            as="h2"
+            className="text-5xl md:text-7xl font-bold text-white tracking-tighter justify-center"
+          />
+          <FadeIn delay={0.2}>
+            <p className="text-text-secondary text-xl max-w-2xl mx-auto font-light">
+              A curated stack of technologies I use to build scalable, high-performance applications.
+            </p>
+          </FadeIn>
         </div>
 
-        {/* Filter Buttons */}
-        <div className="flex flex-wrap justify-center gap-3 mb-12">
-          {filterOptions.map((option) => (
-            <motion.button
-              key={option.key}
-              onClick={() => setActiveFilter(option.key)}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className={`group relative overflow-hidden rounded-full px-6 py-3 text-sm font-medium transition-all duration-300 ${
-                activeFilter === option.key
-                  ? "bg-gradient-to-r from-blue-600 via-purple-600 to-teal-600 text-white shadow-xl shadow-purple-500/30"
-                  : "border-2 border-white/10 bg-neutral-900/50 text-gray-300 hover:border-white/30 hover:bg-neutral-800/80 hover:shadow-lg"
-              }`}
-            >
-              {activeFilter === option.key && (
-                <motion.div
-                  layoutId="activeFilter"
-                  className="absolute inset-0 bg-gradient-to-r from-blue-600 via-purple-600 to-teal-600"
-                  style={{ borderRadius: 9999 }}
-                  transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                />
-              )}
-              <span className="relative z-10 flex items-center gap-2">
-                {option.label}
-                <span
-                  className={`px-2 py-0.5 rounded-full text-xs font-bold ${
-                    activeFilter === option.key
-                      ? "bg-white/20 text-white"
-                      : "bg-white/5 text-gray-500 group-hover:bg-white/10 group-hover:text-gray-400"
-                  }`}
-                >
-                  {option.count}
-                </span>
-              </span>
-            </motion.button>
-          ))}
+
+        {/* Bento Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4">
+          
+          {/* Card 1: Frontend - Slow scroll */}
+          <ScrollReveal yOffset={40} className="md:col-span-2 h-full">
+            <SpotlightCard className="h-full bg-black/40 backdrop-blur-xl border-white/10">
+               <h3 className="text-2xl font-bold text-white tracking-tight mb-6">Frontend Engine</h3>
+               <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                  <SkillItem name="React" icon={SiReact} delay={0} />
+                  <SkillItem name="JavaScript" icon={SiJavascript} delay={0.1} />
+                  <SkillItem name="HTML" icon={SiHtml5} delay={0.2} />
+                  <SkillItem name="CSS" icon={SiCss3} delay={0.3} />
+               </div>
+            </SpotlightCard>
+          </ScrollReveal>
+
+          {/* Card 2: Backend - Medium scroll */}
+          <ScrollReveal yOffset={80} className="md:col-span-1 h-full">
+            <SpotlightCard className="h-full bg-black/40 backdrop-blur-xl border-white/10">
+               <h3 className="text-2xl font-bold text-white tracking-tight mb-6">Backend & Cloud</h3>
+               <div className="grid grid-cols-2 gap-4">
+                  <SkillItem name="Node.js" icon={SiNodedotjs} delay={0.4} />
+                  <SkillItem name="MongoDB" icon={SiMongodb} delay={0.5} />
+                  <SkillItem name="MySQL" icon={SiMysql} delay={0.6} />
+                  <SkillItem name="AWS" icon={SiAmazonwebservices} delay={0.7} />
+               </div>
+            </SpotlightCard>
+          </ScrollReveal>
+
+          {/* Card 3: Systems - Fast scroll */}
+          <ScrollReveal yOffset={120} className="md:col-span-1 h-full">
+            <SpotlightCard className="h-full bg-black/40 backdrop-blur-xl border-white/10">
+               <h3 className="text-2xl font-bold text-white tracking-tight mb-6">Systems & IoT</h3>
+               <div className="grid grid-cols-2 gap-4">
+                  <SkillItem name="C++" icon={SiCplusplus} delay={0.8} />
+                  <SkillItem name="C" icon={SiC} delay={0.9} />
+                  <SkillItem name="Arduino" icon={SiArduino} delay={1.0} />
+                  <SkillItem name="ESP32" icon={SiEspressif} delay={1.1} />
+               </div>
+            </SpotlightCard>
+          </ScrollReveal>
+
+           {/* Card 4: Tools - Infinite Marquee */}
+          <ScrollReveal yOffset={60} className="md:col-span-2 h-full">
+            <SpotlightCard className="h-full bg-black/40 backdrop-blur-xl border-white/10 overflow-hidden flex flex-col justify-center">
+               <h3 className="text-2xl font-bold text-white tracking-tight mb-6">Tools & Languages</h3>
+               
+               {/* Static Tools Grid */}
+               <div className="flex flex-wrap gap-4">
+                  {tools.map((tool, i) => (
+                    <SkillItem 
+                      key={i} 
+                      name={tool.name} 
+                      icon={tool.icon} 
+                      delay={1.2 + (i * 0.1)} 
+                    />
+                  ))}
+               </div>
+            </SpotlightCard>
+          </ScrollReveal>
+
         </div>
-
-        {/* Skills Grid */}
-        <motion.div
-          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 sm:gap-6"
-          layout
-        >
-          {filteredSkills.map((skill, index) => {
-            const Icon = skill.icon;
-            return (
-              <motion.div
-                key={skill.name}
-                layout
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.8 }}
-                transition={{ duration: 0.3, delay: index * 0.05 }}
-              >
-                <TiltCard
-                  className="group relative overflow-hidden rounded-2xl border-2 border-white/10 bg-gradient-to-br from-neutral-900/80 to-neutral-800/50 backdrop-blur-sm p-6 transition-all duration-500 hover:border-white/30 hover:shadow-2xl h-full"
-                  style={{
-                    boxShadow: `0 0 0 0 ${skill.color}00`,
-                  }}
-                >
-                  {/* Animated gradient border on hover */}
-                  <div
-                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl"
-                    style={{
-                      background: `linear-gradient(135deg, ${skill.color}15, transparent 60%)`,
-                    }}
-                  />
-
-                  {/* Glowing orb effect */}
-                  <div
-                    className="absolute top-0 right-0 w-20 h-20 rounded-full blur-3xl opacity-0 group-hover:opacity-40 transition-all duration-500"
-                    style={{ backgroundColor: skill.color }}
-                  />
-
-                  <div className="relative z-10 flex flex-col items-center space-y-4">
-                    {/* Icon with enhanced styling */}
-                    <motion.div
-                      className="relative p-4 rounded-2xl transition-all duration-500 group-hover:scale-110"
-                      style={{
-                        backgroundColor: `${skill.color}15`,
-                        boxShadow: `0 0 0 0 ${skill.color}00`,
-                      }}
-                      whileHover={{
-                        boxShadow: `0 0 30px 5px ${skill.color}40`,
-                        transition: { duration: 0.3 },
-                      }}
-                    >
-                      {/* Icon glow ring */}
-                      <div
-                        className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                        style={{
-                          boxShadow: `inset 0 0 20px ${skill.color}30`,
-                        }}
-                      />
-                      <Icon
-                        className="w-10 h-10 transition-all duration-500 group-hover:rotate-12 relative z-10"
-                        style={{ color: skill.color }}
-                      />
-                    </motion.div>
-
-                    {/* Name with enhanced typography */}
-                    <h3 className="text-sm font-bold text-white text-center tracking-wide transition-all duration-300">
-                      {skill.name}
-                    </h3>
-                  </div>
-
-                  {/* Decorative corner glow - enhanced */}
-                  <div
-                    className="absolute -bottom-6 -right-6 w-24 h-24 rounded-full blur-3xl opacity-0 group-hover:opacity-40 transition-all duration-500"
-                    style={{ backgroundColor: skill.color }}
-                  />
-                </TiltCard>
-              </motion.div>
-            );
-          })}
-        </motion.div>
       </div>
-    </section>
+    </div>
+  );
+}
+
+const tools = [
+  { name: "Python", icon: SiPython },
+  { name: "Git", icon: SiGit },
+];
+
+function SkillItem({ name, icon: Icon, delay }) {
+  const color = brandColors[name] || "#ffffff";
+  
+  return (
+    <motion.div 
+      className="group/item flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 hover:border-white/10 transition-all cursor-default"
+      initial={{ y: 0 }}
+      animate={{ y: [-2, 2, -2] }}
+      transition={{ 
+        duration: 4, 
+        repeat: Infinity, 
+        ease: "easeInOut", 
+        delay: Math.random() * 2 // Random delay for "breathing" effect
+      }}
+      whileHover={{ scale: 1.05, y: -5, transition: { duration: 0.2 } }}
+    >
+      <div 
+        className="text-2xl text-text-secondary group-hover/item:scale-110 transition-transform duration-300"
+        style={{ color: "var(--icon-color)" }}
+      >
+        <span className="group-hover/item:text-[var(--brand-color)] transition-colors" style={{ "--brand-color": color }}>
+          <Icon />
+        </span>
+      </div>
+      <span className="text-sm font-medium text-text-secondary group-hover/item:text-white transition-colors">
+        {name}
+      </span>
+    </motion.div>
   );
 }

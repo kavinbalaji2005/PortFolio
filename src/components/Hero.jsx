@@ -1,122 +1,121 @@
-import { ArrowRight, Github, Linkedin, Download, Eye } from "lucide-react";
-import { motion } from "framer-motion";
-import TypingAnimation from "./TypingAnimation";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { Download, Github, Linkedin, Mail, ChevronDown, ArrowRight } from "lucide-react";
+import TextReveal from "./TextReveal";
+import FadeIn from "./FadeIn";
 
-export default function HeroPortfolio() {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.1,
-      },
-    },
-  };
+export default function Hero() {
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end start"],
+  });
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.5, ease: "easeOut" },
-    },
-  };
+  // Parallax + fade for hero text
+  const y = useTransform(scrollYProgress, [0, 1], [0, 200]);
+  const opacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 0.9]);
+
+  // Floating 3D Element Parallax - Mimicking Bevel's product shots
+  const cardY = useTransform(scrollYProgress, [0, 1], [0, -150]);
+  const cardRotate = useTransform(scrollYProgress, [0, 1], [6, -6]);
+
+  // Background Ambience
+  const blobY = useTransform(scrollYProgress, [0, 1], [0, -50]);
 
   return (
-    <div className="relative w-full min-h-screen flex items-center justify-center">
-      <section id="hero" className="relative z-1 mx-auto max-w-full">
-        <motion.div
-          className="z-10 mx-auto max-w-screen-xl gap-12 px-4 text-gray-600 md:px-8"
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-        >
-          <div className="mx-auto max-w-4xl space-y-6 md:space-y-8 text-center leading-0 lg:leading-5 px-2">
-            {/* Main Heading */}
-            <motion.h2
-              variants={itemVariants}
-              className="font-geist mx-auto bg-[linear-gradient(180deg,_#FFF_0%,_rgba(255,_255,_255,_0.00)_202.08%)] bg-clip-text text-4xl sm:text-5xl md:text-6xl lg:text-7xl tracking-tighter text-transparent font-bold"
-            >
-              Hi, I'm{" "}
-              <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-teal-400 bg-clip-text text-transparent">
-                Kavin Balaji S
-              </span>
-            </motion.h2>
+    <div
+      ref={ref}
+      className="min-h-[100dvh] flex flex-col justify-center items-center bg-background px-6 relative overflow-hidden"
+    >
+      {/* ── Floating 3D Glass Element (Bevel Style) ── */}
+      <motion.div
+        style={{ y: cardY, rotate: cardRotate, x: 200 }}
+        className="absolute right-[5%] top-[20%] w-64 h-80 hidden lg:block pointer-events-none z-0 opacity-40 grayscale-[50%]"
+      >
+        <div className="w-full h-full bg-white/5 backdrop-blur-2xl border border-white/10 rounded-[32px] shadow-2xl relative overflow-hidden">
 
-            {/* Subtitle */}
-            <motion.div
-              variants={itemVariants}
-              className="mx-auto max-w-2xl text-lg sm:text-xl text-gray-300 flex items-center justify-center gap-2 min-h-[28px] sm:min-h-[32px] px-4"
-            >
-              <TypingAnimation
-                texts={[
-                  "Full Stack Developer",
-                  "Cloud Enthusiast",
-                  "AWS Certified Cloud Practitioner",
-                ]}
-                typingSpeed={80}
-                deletingSpeed={50}
-                pauseDuration={2000}
-                className="text-lg sm:text-xl text-gray-300"
-              />
-            </motion.div>
+           {/* Abstract UI lines */}
+           <div className="absolute top-8 left-8 right-8 h-2 bg-white/10 rounded-full" />
+           <div className="absolute top-14 left-8 right-16 h-2 bg-white/5 rounded-full" />
+           <div className="absolute top-24 left-8 right-8 bottom-8 border border-white/5 rounded-2xl" />
+        </div>
+      </motion.div>
 
-            <motion.p
-              variants={itemVariants}
-              className="mx-auto max-w-3xl text-sm sm:text-base text-gray-400 leading-relaxed px-4"
-            >
-              Passionate about building innovative solutions with cutting-edge
-              technologies. Exploring full-stack development, cloud computing,
-              and IoT to create impactful projects.
-            </motion.p>
+      {/* ── Main Content ── */}
+      <motion.div
+        style={{ y, opacity, scale }}
+        className="max-w-5xl w-full z-10 flex flex-col items-center text-center gap-10"
+      >
 
-            {/* Social Links */}
-            <motion.div
-              variants={itemVariants}
-              className="flex items-center justify-center gap-3 sm:gap-4 mt-6 sm:mt-8"
-            >
-              <a
-                href="https://github.com/kavinbalaji2005"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group relative inline-flex h-11 w-11 sm:h-12 sm:w-12 items-center justify-center overflow-hidden rounded-full border border-white/10 bg-gradient-to-tr from-zinc-300/5 via-gray-400/5 to-transparent transition-all hover:border-white/20 hover:bg-white/5 hover:shadow-lg hover:shadow-purple-500/20"
-              >
-                <Github className="h-4 w-4 sm:h-5 sm:w-5 text-gray-300 transition-all group-hover:scale-110 group-hover:text-white" />
-              </a>
-              <a
-                href="https://linkedin.com/in/kavinbalaji2005"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group relative inline-flex h-11 w-11 sm:h-12 sm:w-12 items-center justify-center overflow-hidden rounded-full border border-white/10 bg-gradient-to-tr from-zinc-300/5 via-gray-400/5 to-transparent transition-all hover:border-white/20 hover:bg-white/5 hover:shadow-lg hover:shadow-blue-500/20"
-              >
-                <Linkedin className="h-4 w-4 sm:h-5 sm:w-5 text-gray-300 transition-all group-hover:scale-110 group-hover:text-white" />
-              </a>
-            </motion.div>
 
-            {/* CTA Buttons */}
-            <motion.div
-              variants={itemVariants}
-              className="items-center justify-center space-y-3 gap-x-4 sm:flex sm:space-y-0 mt-6 sm:mt-8 px-4"
+        <div className="space-y-4">
+          <TextReveal
+            text="Creating the Future of Web."
+            as="h1"
+            className="text-[clamp(2.5rem,6vw,6rem)] sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tighter text-white leading-[1.1] text-center"
+            delay={0.2}
+            stagger={0.05}
+          />
+          
+          <FadeIn delay={0.6}>
+             <h2 className="text-lg sm:text-2xl md:text-3xl text-text-secondary font-light tracking-wide max-w-2xl mx-auto px-4">
+               <span className="text-white font-normal">Kavin Balaji S</span> — Full Stack Developer & Cloud Practitioner.
+             </h2>
+          </FadeIn>
+        </div>
+
+        <FadeIn delay={0.8}>
+          <div className="flex flex-col sm:flex-row items-center gap-4 mt-4">
+            <a
+              href="/Kavin_Balaji_CV.pdf"
+              download="Kavin_Balaji_CV.pdf"
+              className="group relative px-6 py-3 md:px-8 md:py-4 bg-white text-black rounded-full font-bold text-lg transition-all duration-300 hover:scale-105 hover:shadow-[0_0_40px_rgba(255,255,255,0.3)] active:scale-95 flex items-center gap-2"
             >
-              <span className="relative inline-block overflow-hidden rounded-full p-[1.5px]">
-                <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
-                <div className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-gray-950 text-xs font-medium text-gray-50 backdrop-blur-3xl">
-                  <a
-                    href="/Kavin_Balaji_CV.pdf"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group border-input inline-flex w-full items-center justify-center gap-2 rounded-full border-[1px] bg-gradient-to-tr from-zinc-300/5 via-purple-400/20 to-transparent px-8 py-4 text-center text-white transition-colors hover:bg-transparent/90 sm:w-auto"
-                  >
-                    <Download className="h-4 w-4 transition-transform group-hover:translate-y-1" />
-                    Download Resume
-                  </a>
-                </div>
-              </span>
-            </motion.div>
+              <span>Download Resume</span>
+              <Download size={20} className="transition-transform group-hover:translate-y-1" />
+            </a>
+            
+            <div className="flex items-center gap-4 px-6 md:px-0">
+               <span className="text-white/20 hidden sm:block">|</span>
+               <div className="flex items-center gap-3">
+                 <SocialLink href="https://github.com/kavinbalaji2005" icon={<Github size={20} />} />
+                 <SocialLink href="https://www.linkedin.com/in/kavinbalaji2005/" icon={<Linkedin size={20} />} />
+                 <SocialLink href="mailto:kavinbalaji@gmail.com" icon={<Mail size={20} />} />
+               </div>
+            </div>
           </div>
-        </motion.div>
-      </section>
+        </FadeIn>
+      </motion.div>
+
+      {/* Scroll Indicator */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 2, duration: 1 }}
+        className="absolute bottom-12 left-1/2 -translate-x-1/2"
+      >
+        <div className="w-[1px] h-16 bg-white/20 overflow-hidden">
+          <motion.div
+            className="w-full h-1/2 bg-white"
+            animate={{ y: [-64, 64] }}
+            transition={{ repeat: Infinity, duration: 2, ease: "linear" }}
+          />
+        </div>
+      </motion.div>
     </div>
+  );
+}
+
+function SocialLink({ href, icon }) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="w-12 h-12 flex items-center justify-center rounded-full bg-white/5 border border-white/10 text-text-secondary transition-all hover:bg-white/10 hover:text-white hover:scale-110"
+    >
+      {icon}
+    </a>
   );
 }

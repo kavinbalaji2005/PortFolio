@@ -65,22 +65,20 @@ export default function About() {
           </ScrollReveal>
 
           <TextReveal
-            text="Driven by curiosity. Engineered for impact."
+            text="A bit about me."
             as="h3"
             className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight"
             delay={0.2}
           />
 
           <ScrollReveal yOffset={0} className="text-lg md:text-xl text-text-secondary leading-relaxed max-w-xl">
-             I am an engineering student with a deep passion for cloud
-             computing and full-stack development. Looking beyond the code, I
-             strive to understand the "why" and "how" of technology to build
-             solutions that truly matter.
+             I'm an engineering student at Amrita who likes building things
+             that work well — from full-stack web apps to IoT hardware. 
+             Most of my time goes into React, Node, and AWS.
           </ScrollReveal>
 
           <ScrollReveal yOffset={0} className="text-lg md:text-xl text-text-secondary leading-relaxed max-w-xl">
-             My journey is fueled by a constant desire to learn, adapt, and
-             innovate in an ever-evolving tech landscape.
+             When I'm not writing code, I'm probably reading about it.
           </ScrollReveal>
 
 

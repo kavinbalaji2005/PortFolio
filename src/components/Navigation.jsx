@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { useScroll } from "./ScrollContext";
@@ -113,7 +113,7 @@ const Navigation = () => {
                 onClick={() => handleNavClick("home")}
                 className="flex items-center hover:opacity-80 transition-opacity"
               >
-                <img src="/logo.png" alt="Logo" className="h-8 w-auto grayscale opacity-80" />
+                <img src="/logo.png" alt="Logo" className="h-8 w-auto" />
               </button>
 
               {/* Desktop Nav Links */}

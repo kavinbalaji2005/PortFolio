@@ -59,7 +59,7 @@ export default function Projects() {
            />
            <FadeIn delay={0.2}>
              <p className="text-text-secondary text-xl mt-4 max-w-xl">
-               A showcase of technical depth and product thinking.
+               Things I've built.
              </p>
            </FadeIn>
         </div>

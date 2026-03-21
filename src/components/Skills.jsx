@@ -45,13 +45,13 @@ export default function Skills() {
       <div className="max-w-7xl w-full z-10 flex flex-col gap-10">
         <div className="text-center space-y-6">
           <TextReveal
-            text="Technical Arsenal"
+            text="Stack"
             as="h2"
             className="text-5xl md:text-7xl font-bold text-white tracking-tighter justify-center"
           />
           <FadeIn delay={0.2}>
             <p className="text-text-secondary text-xl max-w-2xl mx-auto font-light">
-              A curated stack of technologies I use to build scalable, high-performance applications.
+              What I build with.
             </p>
           </FadeIn>
         </div>
@@ -133,21 +133,11 @@ function SkillItem({ name, icon: Icon, delay }) {
   const color = brandColors[name] || "#ffffff";
   
   return (
-    <motion.div 
-      className="group/item flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 hover:border-white/10 transition-all cursor-default"
-      initial={{ y: 0 }}
-      animate={{ y: [-2, 2, -2] }}
-      transition={{ 
-        duration: 4, 
-        repeat: Infinity, 
-        ease: "easeInOut", 
-        delay: Math.random() * 2 // Random delay for "breathing" effect
-      }}
-      whileHover={{ scale: 1.05, y: -5, transition: { duration: 0.2 } }}
+    <div 
+      className="group/item flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 hover:border-white/10 transition-all cursor-default hover:scale-105 hover:-translate-y-1 duration-200"
     >
       <div 
         className="text-2xl text-text-secondary group-hover/item:scale-110 transition-transform duration-300"
-        style={{ color: "var(--icon-color)" }}
       >
         <span className="group-hover/item:text-[var(--brand-color)] transition-colors" style={{ "--brand-color": color }}>
           <Icon />
@@ -156,6 +146,6 @@ function SkillItem({ name, icon: Icon, delay }) {
       <span className="text-sm font-medium text-text-secondary group-hover/item:text-white transition-colors">
         {name}
       </span>
-    </motion.div>
+    </div>
   );
 }

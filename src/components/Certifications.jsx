@@ -40,7 +40,7 @@ export default function Certifications() {
           />
           <FadeIn delay={0.3}>
             <p className="text-text-secondary text-lg">
-              Validated expertise in industry standards.
+              Industry-recognized.
             </p>
           </FadeIn>
         </div>

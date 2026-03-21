@@ -201,22 +201,9 @@ export default function Contact() {
 
                 <button
                   disabled={status === "loading"}
-                  className="group relative w-full bg-white text-black font-bold rounded-2xl py-4 flex items-center justify-center gap-2 hover:bg-gray-100 hover:shadow-glow-white active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed overflow-hidden"
+                  className="w-full bg-white text-black font-bold rounded-2xl py-4 flex items-center justify-center gap-2 hover:bg-gray-100 hover:shadow-glow-white active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {/* Idle shimmer */}
-                  {status === "idle" && (
-                    <span className="absolute inset-0 overflow-hidden rounded-2xl">
-                      <span
-                        className="absolute inset-0 bg-gradient-to-r from-transparent via-black/5 to-transparent"
-                        style={{
-                          animation: "shine-sweep 3s ease-in-out infinite",
-                        }}
-                      />
-                    </span>
-                  )}
-                  <span className="relative z-10 flex items-center gap-2">
-                    {getButtonContent()}
-                  </span>
+                  {getButtonContent()}
                 </button>
               </form>
             </div>

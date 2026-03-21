@@ -16,32 +16,11 @@ export default function Hero() {
   const opacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
   const scale = useTransform(scrollYProgress, [0, 1], [1, 0.9]);
 
-  // Floating 3D Element Parallax - Mimicking Bevel's product shots
-  const cardY = useTransform(scrollYProgress, [0, 1], [0, -150]);
-  const cardRotate = useTransform(scrollYProgress, [0, 1], [6, -6]);
-
-  // Background Ambience
-  const blobY = useTransform(scrollYProgress, [0, 1], [0, -50]);
-
   return (
     <div
       ref={ref}
       className="min-h-[100dvh] flex flex-col justify-center items-center bg-background px-6 relative overflow-hidden"
     >
-      {/* ── Floating 3D Glass Element (Bevel Style) ── */}
-      <motion.div
-        style={{ y: cardY, rotate: cardRotate, x: 200 }}
-        className="absolute right-[5%] top-[20%] w-64 h-80 hidden lg:block pointer-events-none z-0 opacity-40 grayscale-[50%]"
-      >
-        <div className="w-full h-full glass-panel rounded-[32px] relative overflow-hidden">
-
-           {/* Abstract UI lines */}
-           <div className="absolute top-8 left-8 right-8 h-2 bg-white/10 rounded-full" />
-           <div className="absolute top-14 left-8 right-16 h-2 bg-white/5 rounded-full" />
-           <div className="absolute top-24 left-8 right-8 bottom-8 border border-white/5 rounded-2xl" />
-        </div>
-      </motion.div>
-
       {/* ── Main Content ── */}
       <motion.div
         style={{ y, opacity, scale }}

@@ -28,31 +28,21 @@ function App() {
           <Hero />
         </section>
 
-        <div className="section-divider" />
-
         <section id="about" aria-label="About" className="relative">
           <About />
         </section>
-
-        <div className="section-divider" />
 
         <section id="skills" aria-label="Skills" className="relative">
           <Skills />
         </section>
 
-        <div className="section-divider" />
-
         <section id="projects" aria-label="Projects" className="relative">
           <Projects />
         </section>
 
-        <div className="section-divider" />
-
         <section id="certifications" aria-label="Certifications" className="relative">
           <Certifications />
         </section>
-
-        <div className="section-divider" />
 
         <section id="contact" aria-label="Contact" className="relative">
           <Contact />

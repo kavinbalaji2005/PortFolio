@@ -81,7 +81,7 @@ export default function Contact() {
       default:
         return (
           <>
-            Send Message <ArrowRight size={18} />
+            Send Message <ArrowRight size={18} strokeWidth={2.5} />
           </>
         );
     }
@@ -110,14 +110,14 @@ export default function Contact() {
                   href="mailto:kavinbalaji@gmail.com"
                   className="group flex items-center gap-4 text-xl text-text-secondary hover:text-white transition-colors"
                 >
-                  <div className="w-12 h-12 rounded-full bg-surface border border-white/10 flex items-center justify-center group-hover:border-primary/30 group-hover:shadow-glow-primary transition-all duration-300">
+                  <div className="w-12 h-12 rounded-full bg-surface border border-border flex items-center justify-center group-hover:bg-surface-hover group-hover:border-border-hover group-hover:shadow-[0_0_30px_rgba(41,151,255,0.25)] transition-all duration-300">
                     <Mail className="w-5 h-5" aria-hidden="true" />
                   </div>
                   <span>kavinbalaji@gmail.com</span>
                 </a>
 
                 <div className="flex items-center gap-4 text-xl text-text-secondary">
-                  <div className="w-12 h-12 rounded-full bg-surface border border-white/10 flex items-center justify-center">
+                  <div className="w-12 h-12 rounded-full bg-surface border border-border flex items-center justify-center">
                     <MapPin className="w-5 h-5" aria-hidden="true" />
                   </div>
                   <span>Coimbatore, India</span>
@@ -142,7 +142,7 @@ export default function Contact() {
                     type="text"
                     placeholder="John Doe"
                     required
-                    className="w-full bg-black/30 border border-white/15 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-primary/60 focus:bg-black/40 focus:shadow-[0_0_20px_rgba(41,151,255,0.1)] transition-all placeholder:text-white/25"
+                    className="w-full bg-surface/80 border border-border rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-primary/60 focus:bg-surface focus:shadow-[0_0_20px_rgba(41,151,255,0.1)] transition-all placeholder:text-text-secondary"
                     value={formData.name}
                     onChange={(e) =>
                       setFormData({ ...formData, name: e.target.value })
@@ -162,10 +162,10 @@ export default function Contact() {
                     type="email"
                     placeholder="john@example.com"
                     required
-                    className={`w-full bg-black/30 border rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-primary/60 focus:bg-black/40 focus:shadow-[0_0_20px_rgba(41,151,255,0.1)] transition-all placeholder:text-white/25 ${
+                    className={`w-full bg-surface/80 border rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-primary/60 focus:bg-surface focus:shadow-[0_0_20px_rgba(41,151,255,0.1)] transition-all placeholder:text-text-secondary ${
                       status === "invalid-email"
                         ? "border-red-500/50"
-                        : "border-white/15"
+                        : "border-border"
                     }`}
                     value={formData.email}
                     onChange={(e) =>
@@ -191,7 +191,7 @@ export default function Contact() {
                     rows={4}
                     placeholder="Tell me about your project..."
                     required
-                    className="w-full bg-black/30 border border-white/15 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-primary/60 focus:bg-black/40 focus:shadow-[0_0_20px_rgba(41,151,255,0.1)] transition-all placeholder:text-white/25 resize-none"
+                    className="w-full bg-surface/80 border border-border rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-primary/60 focus:bg-surface focus:shadow-[0_0_20px_rgba(41,151,255,0.1)] transition-all placeholder:text-text-secondary resize-none"
                     value={formData.message}
                     onChange={(e) =>
                       setFormData({ ...formData, message: e.target.value })
@@ -223,9 +223,6 @@ export default function Contact() {
           </FadeIn>
         </div>
       </div>
-
-      {/* Gradient divider above footer */}
-      <div className="section-divider" />
 
       {/* Footer */}
       <footer className="py-8 px-6 z-10">

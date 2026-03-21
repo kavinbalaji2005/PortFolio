@@ -8,6 +8,10 @@
   --color-secondary: #30d158;
   --color-accent: #bf5af2;
   --color-surface: #1c1c1e;
+  --color-surface-hover: #262629;
+  --color-surface-active: #323235;
+  --color-border: rgba(255, 255, 255, 0.1);
+  --color-border-hover: rgba(255, 255, 255, 0.2);
   --color-bg: #0d0d0d;
 }
 
@@ -139,4 +143,12 @@ body::after {
   );
   max-width: 1200px;
   margin: 0 auto;
+}
+
+@layer components {
+  /* ── Glass Panel Utility ── */
+  .glass-panel {
+    @apply bg-surface/50 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.1)];
+    border: 1px solid var(--color-border);
+  }
 }

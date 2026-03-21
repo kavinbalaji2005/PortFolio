@@ -33,7 +33,7 @@ export default function Hero() {
         style={{ y: cardY, rotate: cardRotate, x: 200 }}
         className="absolute right-[5%] top-[20%] w-64 h-80 hidden lg:block pointer-events-none z-0 opacity-40 grayscale-[50%]"
       >
-        <div className="w-full h-full bg-white/5 backdrop-blur-2xl border border-white/10 rounded-[32px] shadow-2xl relative overflow-hidden">
+        <div className="w-full h-full glass-panel rounded-[32px] relative overflow-hidden">
 
            {/* Abstract UI lines */}
            <div className="absolute top-8 left-8 right-8 h-2 bg-white/10 rounded-full" />
@@ -50,19 +50,19 @@ export default function Hero() {
 
 
         <div className="space-y-4">
-          <TextReveal
-            text="Creating the Future of Web."
-            as="h1"
-            className="text-[clamp(2.5rem,6vw,6rem)] sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tighter text-white leading-[1.1] text-center"
-            delay={0.2}
-            stagger={0.05}
-          />
-          
-          <FadeIn delay={0.6}>
-             <h2 className="text-lg sm:text-2xl md:text-3xl text-text-secondary font-light tracking-wide max-w-2xl mx-auto px-4">
-               <span className="text-white font-normal">Kavin Balaji S</span> — Full Stack Developer & Cloud Practitioner.
-             </h2>
+          <FadeIn delay={0.2}>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl text-text-secondary tracking-wide text-center">
+              Hello, This is
+            </h2>
           </FadeIn>
+          
+          <TextReveal
+            text="Kavin Balaji"
+            as="h1"
+            className="text-[clamp(4rem,10vw,8rem)] leading-none font-black text-white tracking-tighter text-center"
+            delay={0.4}
+            stagger={0.1}
+          />
         </div>
 
         <FadeIn delay={0.8}>
@@ -73,7 +73,7 @@ export default function Hero() {
               className="group relative px-6 py-3 md:px-8 md:py-4 bg-white text-black rounded-full font-bold text-lg transition-all duration-300 hover:scale-105 hover:shadow-[0_0_40px_rgba(255,255,255,0.3)] active:scale-95 flex items-center gap-2"
             >
               <span>Download Resume</span>
-              <Download size={20} className="transition-transform group-hover:translate-y-1" />
+              <Download size={18} strokeWidth={2.5} className="transition-transform group-hover:translate-y-1" />
             </a>
             
             <div className="flex items-center gap-4 px-6 md:px-0">
@@ -113,7 +113,7 @@ function SocialLink({ href, icon }) {
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="w-12 h-12 flex items-center justify-center rounded-full bg-white/5 border border-white/10 text-text-secondary transition-all hover:bg-white/10 hover:text-white hover:scale-110"
+      className="w-12 h-12 flex items-center justify-center rounded-full bg-surface border border-border text-text-secondary transition-all hover:bg-surface-hover hover:border-border-hover hover:text-white hover:scale-110 shadow-lg"
     >
       {icon}
     </a>

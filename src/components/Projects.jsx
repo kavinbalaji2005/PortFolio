@@ -78,7 +78,7 @@ export default function Projects() {
                 className="flex flex-col justify-center min-h-[40vh]"
               >
                 <div className="flex items-center gap-3 mb-4">
-                  <span className="text-4xl md:text-6xl font-black text-white/10">
+                  <span className="text-3xl md:text-4xl font-black text-white/30">
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <div className="h-px bg-white/10 flex-1" />
@@ -88,20 +88,20 @@ export default function Projects() {
                    {project.tech}
                 </span>
 
-                <h3 className="text-3xl md:text-5xl font-bold text-white mb-6 leading-tight">
+                <h3 className="text-3xl md:text-5xl font-bold text-white mb-3 leading-tight">
                   <a href={project.link} target="_blank" rel="noopener noreferrer" className="hover:underline decoration-white/20 underline-offset-8 transition-all">
                     {project.title}
                   </a>
                 </h3>
 
                 {/* Mobile Visual */}
-                <div className={`lg:hidden w-full aspect-video rounded-2xl mb-6 overflow-hidden relative bg-gradient-to-br ${project.color}`}>
+                <div className={`lg:hidden w-full aspect-video rounded-2xl mb-4 overflow-hidden relative bg-gradient-to-br border border-border shadow-[0_8px_32px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.2)] ${project.color}`}>
                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(0,0,0,0.5),transparent)]" />
                    <div className="absolute inset-0 flex items-center justify-center p-4">
                       {project.gif ? (
                          <img src={project.gif} alt={project.title} className="w-full h-full object-cover rounded-xl shadow-lg border border-white/10" />
                       ) : (
-                         <span className="text-6xl md:text-8xl font-black text-white/10 tracking-tighter">
+                         <span className="text-5xl md:text-7xl font-black text-white/10 tracking-tighter">
                            {project.title.charAt(0)}
                          </span>
                       )}
@@ -142,7 +142,7 @@ export default function Projects() {
 
           {/* RIGHT: Sticky Visual (Desktop Only) */}
           <div className="hidden lg:block w-1/2 sticky top-0 h-screen flex flex-col justify-center py-24">
-             <div className="relative w-full aspect-square max-h-[600px] rounded-[40px] overflow-hidden border border-white/5 bg-surface/30 backdrop-blur-sm">
+             <div className="relative w-full aspect-square max-h-[600px] rounded-[40px] overflow-hidden glass-panel">
                 <AnimatePresence mode="popLayout">
                    <motion.div
                      key={activeProject}
@@ -154,7 +154,7 @@ export default function Projects() {
                    >
                      {/* Decorative gradients inside the card */}
                      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(0,0,0,0.5),transparent)]" />
-                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[85%] h-[85%] bg-white/5 rounded-3xl border border-white/10 shadow-2xl flex items-center justify-center overflow-hidden">
+                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[85%] h-[85%] bg-white/5 rounded-3xl border border-border shadow-[0_8px_32px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.2)] flex items-center justify-center overflow-hidden">
                         {projects[activeProject].gif ? (
                            <motion.img 
                              src={projects[activeProject].gif} 
@@ -165,7 +165,7 @@ export default function Projects() {
                              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
                            />
                         ) : (
-                           <span className="text-9xl font-black text-white/10 tracking-tighter">
+                           <span className="text-7xl font-black text-white/10 tracking-tighter">
                              {projects[activeProject].title.charAt(0)}
                            </span>
                         )}

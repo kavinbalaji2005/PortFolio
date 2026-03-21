@@ -19,6 +19,10 @@ export default {
       colors: {
         background: "#0d0d0d",
         surface: "#1c1c1e",
+        "surface-hover": "var(--color-surface-hover)",
+        "surface-active": "var(--color-surface-active)",
+        border: "var(--color-border)",
+        "border-hover": "var(--color-border-hover)",
         primary: "#2997ff",
         secondary: "#30d158",
         accent: "#bf5af2",

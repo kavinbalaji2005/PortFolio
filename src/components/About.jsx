@@ -1,87 +1,108 @@
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import TextReveal from "./TextReveal";
 import ScrollReveal from "./ScrollReveal";
+import FadeIn from "./FadeIn";
 
 export default function About() {
   const ref = useRef(null);
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useEffect(() => {
+    const checkSize = () => setIsDesktop(window.innerWidth >= 1024);
+    checkSize();
+    window.addEventListener("resize", checkSize);
+    return () => window.removeEventListener("resize", checkSize);
+  }, []);
+
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "end start"],
   });
 
-  const blobY = useTransform(scrollYProgress, [0, 1], [200, -200]);
-  const imageY = useTransform(scrollYProgress, [0, 1], [100, -100]);
-
-
+  const imageY = useTransform(scrollYProgress, [0, 1], [120, -120]);
+  const imageClip = useTransform(
+    scrollYProgress,
+    [0, 0.3, 0.5],
+    [
+      "inset(100% 0 0 0)",
+      "inset(20% 0 0 0)",
+      "inset(0% 0 0 0)",
+    ]
+  );
 
   return (
     <div
       ref={ref}
-      className="min-h-[100dvh] flex items-center justify-center bg-background px-6 md:px-20 py-24 relative overflow-hidden"
+      className="min-h-[100dvh] flex items-center justify-center bg-background px-6 md:px-16 lg:px-20 py-24 relative overflow-hidden"
     >
-      {/* Parallax background blob */}
-      {/* Blob removed */}
-      {/* Second subtle blob */}
-
-
-      <div className="max-w-[1400px] w-full grid grid-cols-1 md:grid-cols-2 gap-16 items-center z-10">
-        {/* Image Side — parallax + scale-in */}
+      <div className="max-w-[1300px] w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center z-10">
+        {/* Image Side — parallax + clip-path reveal */}
         <motion.div
-          style={{ y: imageY }}
-          className="order-2 md:order-1 flex justify-center md:justify-start"
+          style={{ y: isDesktop ? imageY : 0 }}
+          className="order-2 lg:order-1 lg:col-span-5 flex justify-center lg:justify-start"
         >
-          <ScrollReveal scale={true} className="relative w-[300px] h-[300px] sm:w-[400px] sm:h-[400px] rounded-3xl overflow-hidden shadow-2xl shadow-black/50 group">
+          <ScrollReveal
+            scale={true}
+            className="relative w-[280px] h-[350px] sm:w-[380px] sm:h-[480px] rounded-[2rem] overflow-hidden shadow-2xl shadow-black/50 group mx-auto lg:mx-0"
+          >
+            <motion.div
+              style={{ clipPath: imageClip }}
+              className="absolute inset-0"
+            >
               <img
                 src="/ProfilePic.png"
                 alt="Kavin Balaji S - Profile photo"
                 loading="lazy"
-                className="w-full h-full object-cover scale-110 group-hover:scale-100 transition-transform duration-700 ease-out"
+                className="w-full h-full object-cover scale-105 group-hover:scale-100 transition-transform duration-1000 ease-out"
               />
-              {/* Gradient mask for softer edges */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-              <div className="absolute inset-0 shadow-[inset_0_0_40px_rgba(0,0,0,0.4)]" />
+            </motion.div>
 
-              <div className="absolute bottom-6 left-6 text-white p-4 backdrop-blur-md bg-white/10 rounded-xl border border-white/20 shadow-lg group-hover:border-primary/30 group-hover:shadow-glow-primary transition-all duration-500">
-                <p className="text-sm font-semibold opacity-80">Education</p>
-                <p className="text-lg font-bold">
-                  Amrita Vishwa Vidyapeetham
-                </p>
-                <p className="text-sm opacity-70">B.Tech CCE (2023-2027)</p>
-              </div>
+            {/* Gradient mask for softer edges */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/30 via-transparent to-transparent" />
+
+            {/* Education badge — elevated with glassmorphism */}
+            <div className="absolute bottom-5 left-5 right-5 text-white p-4 backdrop-blur-xl bg-white/[0.06] rounded-2xl border border-white/[0.08] shadow-xl group-hover:border-white/[0.12] transition-all duration-700">
+              <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/60 mb-1">
+                Education
+              </p>
+              <p className="text-sm font-bold text-white/90">
+                Amrita Vishwa Vidyapeetham
+              </p>
+              <p className="text-xs text-white/60 mt-0.5">
+                B.Tech CCE (2023-2027)
+              </p>
+            </div>
           </ScrollReveal>
         </motion.div>
 
-        {/* Content Side */}
-        <div className="order-1 md:order-2 space-y-6">
-          <ScrollReveal yOffset={0}>
-            <div className="flex items-center gap-3">
-              {/* Decorative accent line */}
-              <div className="w-10 h-[2px] bg-white/20 rounded-full" />
-              <h2 className="text-sm font-semibold tracking-wider text-secondary uppercase">
-                About Me
-              </h2>
-            </div>
+        {/* Content Side — editorial layout */}
+        <div className="order-1 lg:order-2 lg:col-span-7 space-y-8 lg:pl-8">
+          <div>
+
+            <TextReveal
+              text="A bit about me."
+              as="h2"
+              mode="word"
+              className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white leading-[1.1] mt-4 tracking-tight"
+              delay={0.2}
+            />
+          </div>
+
+          <ScrollReveal
+            yOffset={0}
+            className="text-base md:text-lg text-white/70 leading-[1.8] max-w-xl font-light"
+          >
+            I'm an engineering undergraduate who likes building things that
+            work well. Most of my time goes into Web development and Cloud infrastructure.
           </ScrollReveal>
-
-          <TextReveal
-            text="A bit about me."
-            as="h3"
-            className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight"
-            delay={0.2}
-          />
-
-          <ScrollReveal yOffset={0} className="text-lg md:text-xl text-text-secondary leading-relaxed max-w-xl">
-             I'm an engineering student at Amrita who likes building things
-             that work well — from full-stack web apps to IoT hardware. 
-             Most of my time goes into React, Node, and AWS.
+          <ScrollReveal
+            yOffset={0}
+            className="text-base md:text-lg text-white/70 leading-[1.8] max-w-xl font-light"
+          >
+            When I'm not writing code, I'm probably reading about it.
           </ScrollReveal>
-
-          <ScrollReveal yOffset={0} className="text-lg md:text-xl text-text-secondary leading-relaxed max-w-xl">
-             When I'm not writing code, I'm probably reading about it.
-          </ScrollReveal>
-
-
         </div>
       </div>
     </div>

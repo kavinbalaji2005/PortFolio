@@ -1,9 +1,20 @@
 import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
 import {
-  SiJavascript, SiReact, SiNodedotjs, SiPython, SiGit, SiMysql,
-  SiMongodb, SiHtml5, SiCss3, SiCplusplus, SiC, SiArduino,
-  SiAmazonwebservices, SiEspressif
+  SiJavascript,
+  SiReact,
+  SiNodedotjs,
+  SiPython,
+  SiGit,
+  SiMysql,
+  SiMongodb,
+  SiHtml5,
+  SiCss3,
+  SiC,
+  SiAmazonwebservices,
+  SiExpress,
+  SiSqlite,
+  SiPostman,
+  SiDocker,
 } from "react-icons/si";
 import TextReveal from "./TextReveal";
 import FadeIn from "./FadeIn";
@@ -15,135 +26,123 @@ const brandColors = {
   HTML: "#e34f26",
   CSS: "#1572b6",
   JavaScript: "#f7df1e",
-  React: "#61dafb",
+  "React.js": "#61dafb",
+  "Express.js": "#ffffff",
   "Node.js": "#68a063",
+  AWS: "#ff9900",
   MySQL: "#00758f",
   MongoDB: "#47a248",
-  Python: "#3776ab",
-  "C++": "#00599c",
+  SQLite: "#003b57",
+  Postman: "#ff6c37",
   C: "#555555",
-  Arduino: "#00979d",
-  ESP32: "#e7352c",
-  AWS: "#ff9900",
+  Python: "#3776ab",
   Git: "#f05032",
+  Docker: "#2496ed",
 };
 
 export default function Skills() {
   const ref = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"],
-  });
-  
-  const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
 
   return (
-    <div ref={ref} className="min-h-screen flex flex-col items-center justify-center bg-background px-6 py-20 relative overflow-hidden">
-      {/* Background Ambience */}
-      {/* Background Ambience Removed */}
-
-      <div className="max-w-7xl w-full z-10 flex flex-col gap-10">
-        <div className="text-center space-y-6">
+    <div
+      ref={ref}
+      className="min-h-screen flex flex-col items-center justify-center bg-background px-6 py-20 relative overflow-hidden"
+    >
+      <div className="max-w-7xl w-full z-10 flex flex-col gap-12">
+        <div className="text-center space-y-4">
           <TextReveal
-            text="Stack"
+            text="Tech"
             as="h2"
-            className="text-5xl md:text-7xl font-bold text-white tracking-tighter justify-center"
+            mode="char"
+            className="text-5xl md:text-7xl font-display font-bold text-white tracking-tighter justify-center"
           />
           <FadeIn delay={0.2}>
-            <p className="text-text-secondary text-xl max-w-2xl mx-auto font-light">
+            <p className="text-white/60 text-lg max-w-2xl mx-auto font-light">
               What I build with.
             </p>
           </FadeIn>
         </div>
 
-
         {/* Bento Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4">
-          
-          {/* Card 1: Frontend - Slow scroll */}
-          <ScrollReveal yOffset={40} className="md:col-span-2 h-full">
-            <SpotlightCard className="h-full bg-black/40 backdrop-blur-xl border-white/10">
-               <h3 className="text-2xl font-bold text-white tracking-tight mb-6">Frontend Engine</h3>
-               <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                  <SkillItem name="React" icon={SiReact} delay={0} />
-                  <SkillItem name="JavaScript" icon={SiJavascript} delay={0.1} />
-                  <SkillItem name="HTML" icon={SiHtml5} delay={0.2} />
-                  <SkillItem name="CSS" icon={SiCss3} delay={0.3} />
-               </div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 p-2">
+          {/* Card 1: Frontend */}
+          <ScrollReveal yOffset={40} className="lg:col-span-1 h-full">
+            <SpotlightCard
+              className="h-full bg-white/[0.02] hover:bg-white/[0.04] backdrop-blur-xl border border-white/20 hover:border-white/40 p-10 md:p-12 transition-all duration-300"
+              spotlightColor="rgba(255, 255, 255, 0.08)"
+            >
+              <h3 className="text-xl font-display font-bold text-white tracking-tight mb-6">
+                Frontend Engine
+              </h3>
+              <div className="grid grid-cols-2 gap-4">
+                <SkillItem name="React.js" icon={SiReact} />
+                <SkillItem name="JavaScript" icon={SiJavascript} />
+                <SkillItem name="HTML" icon={SiHtml5} />
+                <SkillItem name="CSS" icon={SiCss3} />
+              </div>
             </SpotlightCard>
           </ScrollReveal>
 
-          {/* Card 2: Backend - Medium scroll */}
-          <ScrollReveal yOffset={80} className="md:col-span-1 h-full">
-            <SpotlightCard className="h-full bg-black/40 backdrop-blur-xl border-white/10">
-               <h3 className="text-2xl font-bold text-white tracking-tight mb-6">Backend & Cloud</h3>
-               <div className="grid grid-cols-2 gap-4">
-                  <SkillItem name="Node.js" icon={SiNodedotjs} delay={0.4} />
-                  <SkillItem name="MongoDB" icon={SiMongodb} delay={0.5} />
-                  <SkillItem name="MySQL" icon={SiMysql} delay={0.6} />
-                  <SkillItem name="AWS" icon={SiAmazonwebservices} delay={0.7} />
-               </div>
+          {/* Card 2: Backend & Databases */}
+          <ScrollReveal yOffset={80} className="lg:col-span-1 h-full">
+            <SpotlightCard
+              className="h-full bg-white/[0.02] hover:bg-white/[0.04] backdrop-blur-xl border border-white/20 hover:border-white/40 p-10 md:p-12 transition-all duration-300"
+              spotlightColor="rgba(255, 255, 255, 0.08)"
+            >
+              <h3 className="text-xl font-display font-bold text-white tracking-tight mb-6">
+                Backend & Databases
+              </h3>
+              <div className="grid grid-cols-2 gap-4">
+                <SkillItem name="Node.js" icon={SiNodedotjs} />
+                <SkillItem name="Express.js" icon={SiExpress} />
+                <SkillItem name="MySQL" icon={SiMysql} />
+                <SkillItem name="MongoDB" icon={SiMongodb} />
+                <SkillItem name="SQLite" icon={SiSqlite} />
+              </div>
             </SpotlightCard>
           </ScrollReveal>
 
-          {/* Card 3: Systems - Fast scroll */}
-          <ScrollReveal yOffset={120} className="md:col-span-1 h-full">
-            <SpotlightCard className="h-full bg-black/40 backdrop-blur-xl border-white/10">
-               <h3 className="text-2xl font-bold text-white tracking-tight mb-6">Systems & IoT</h3>
-               <div className="grid grid-cols-2 gap-4">
-                  <SkillItem name="C++" icon={SiCplusplus} delay={0.8} />
-                  <SkillItem name="C" icon={SiC} delay={0.9} />
-                  <SkillItem name="Arduino" icon={SiArduino} delay={1.0} />
-                  <SkillItem name="ESP32" icon={SiEspressif} delay={1.1} />
-               </div>
+          {/* Card 3: Tools & Languages */}
+          <ScrollReveal yOffset={60} className="lg:col-span-2 h-full">
+            <SpotlightCard
+              className="h-full bg-white/[0.02] hover:bg-white/[0.04] backdrop-blur-xl border border-white/20 hover:border-white/40 p-10 md:p-12 transition-all duration-300 overflow-hidden flex flex-col justify-center"
+              spotlightColor="rgba(255, 255, 255, 0.08)"
+            >
+              <h3 className="text-xl font-display font-bold text-white tracking-tight mb-6">
+                Tools & Languages
+              </h3>
+              <div className="flex flex-wrap gap-4">
+                <SkillItem name="C" icon={SiC} />
+                <SkillItem name="Python" icon={SiPython} />
+                <SkillItem name="AWS" icon={SiAmazonwebservices} />
+                <SkillItem name="Postman" icon={SiPostman} />
+                <SkillItem name="Git" icon={SiGit} />
+                <SkillItem name="Docker" icon={SiDocker} />
+              </div>
             </SpotlightCard>
           </ScrollReveal>
-
-           {/* Card 4: Tools - Infinite Marquee */}
-          <ScrollReveal yOffset={60} className="md:col-span-2 h-full">
-            <SpotlightCard className="h-full bg-black/40 backdrop-blur-xl border-white/10 overflow-hidden flex flex-col justify-center">
-               <h3 className="text-2xl font-bold text-white tracking-tight mb-6">Tools & Languages</h3>
-               
-               {/* Static Tools Grid */}
-               <div className="flex flex-wrap gap-4">
-                  {tools.map((tool, i) => (
-                    <SkillItem 
-                      key={i} 
-                      name={tool.name} 
-                      icon={tool.icon} 
-                      delay={1.2 + (i * 0.1)} 
-                    />
-                  ))}
-               </div>
-            </SpotlightCard>
-          </ScrollReveal>
-
         </div>
       </div>
     </div>
   );
 }
 
-const tools = [
-  { name: "Python", icon: SiPython },
-  { name: "Git", icon: SiGit },
-];
-
-function SkillItem({ name, icon: Icon, delay }) {
+function SkillItem({ name, icon: Icon }) {
   const color = brandColors[name] || "#ffffff";
-  
+
   return (
-    <div 
-      className="group/item flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 hover:border-white/10 transition-all cursor-default hover:scale-105 hover:-translate-y-1 duration-200"
+    <div
+      className="group/item flex items-center gap-4 p-4 sm:p-5 rounded-2xl bg-white/[0.02] border border-white/[0.04] hover:bg-white/[0.05] hover:border-white/[0.08] transition-all cursor-default duration-300"
     >
-      <div 
-        className="text-2xl text-text-secondary group-hover/item:scale-110 transition-transform duration-300"
-      >
-        <span className="group-hover/item:text-[var(--brand-color)] transition-colors" style={{ "--brand-color": color }}>
+      <div className="text-2xl sm:text-3xl transition-all duration-300 group-hover/item:scale-110 flex items-center justify-center shrink-0">
+        <span
+          style={{ color }}
+          className="opacity-85 group-hover/item:opacity-100 transition-opacity duration-300 flex items-center justify-center"
+        >
           <Icon />
         </span>
       </div>
-      <span className="text-sm font-medium text-text-secondary group-hover/item:text-white transition-colors">
+      <span className="text-sm sm:text-base font-semibold text-white/80 group-hover/item:text-white transition-colors duration-300">
         {name}
       </span>
     </div>

@@ -1,5 +1,10 @@
 import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useReducedMotion,
+} from "framer-motion";
 
 /**
  * ScrollReveal — a scroll-linked animation wrapper.
@@ -21,7 +26,8 @@ export default function ScrollReveal({
   scale = false,
 }) {
   const ref = useRef(null);
-  
+  const shouldReduceMotion = useReducedMotion();
+
   // Track scroll progress of this specific element within the viewport
   // "start end" = when element top hits viewport bottom
   // "end start" = when element bottom hits viewport top
@@ -31,9 +37,21 @@ export default function ScrollReveal({
     offset: ["start end", "center center"],
   });
 
-  const opacity = useTransform(scrollYProgress, [0, 1], [startOpacity, endOpacity]);
-  const y = useTransform(scrollYProgress, [0, 1], [yOffset, 0]);
-  const s = useTransform(scrollYProgress, [0, 1], [scale ? 0.9 : 1, 1]);
+  const opacity = useTransform(
+    scrollYProgress,
+    [0, 1],
+    [startOpacity, endOpacity],
+  );
+  const y = useTransform(
+    scrollYProgress,
+    [0, 1],
+    [shouldReduceMotion ? 0 : yOffset, 0],
+  );
+  const s = useTransform(
+    scrollYProgress,
+    [0, 1],
+    [scale && !shouldReduceMotion ? 0.9 : 1, 1],
+  );
 
   return (
     <motion.div

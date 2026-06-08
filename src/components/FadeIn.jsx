@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 
 /**
  * FadeIn — a reusable scroll-triggered fade + slide animation wrapper.
@@ -23,19 +23,22 @@ export default function FadeIn({
   blur = false,
   startScale = 1,
 }) {
+  const shouldReduceMotion = useReducedMotion();
+  const actualDistance = shouldReduceMotion ? 0 : distance;
+
   const dirMap = {
-    up: { y: distance },
-    down: { y: -distance },
-    left: { x: distance },
-    right: { x: -distance },
+    up: { y: actualDistance },
+    down: { y: -actualDistance },
+    left: { x: actualDistance },
+    right: { x: -actualDistance },
   };
 
   return (
     <motion.div
       initial={{
         opacity: 0,
-        scale: startScale,
-        filter: blur ? "blur(8px)" : "blur(0px)",
+        scale: shouldReduceMotion ? 1 : startScale,
+        filter: blur && !shouldReduceMotion ? "blur(8px)" : "blur(0px)",
         ...dirMap[direction],
       }}
       whileInView={{
@@ -47,7 +50,7 @@ export default function FadeIn({
       }}
       viewport={{ once, margin: "-100px" }}
       transition={{
-        duration,
+        duration: shouldReduceMotion ? 0.3 : duration,
         delay,
         ease: [0.25, 0.46, 0.45, 0.94],
       }}
